@@ -32,5 +32,7 @@ grails.project.dependency.resolution = {
               ":rest-client-builder:1.0.2") {
             export = false
         }
+
+        compile ":jmx:0.7.2"
     }
 }
