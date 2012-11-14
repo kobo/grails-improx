@@ -1,4 +1,4 @@
-package org.jggug.grails.plugin.interactiveproxy
+package org.jggug.kobo.grails.plugin.improx
 
 import grails.build.logging.GrailsConsole
 import org.codehaus.groovy.grails.cli.logging.GrailsConsoleErrorPrintStream

@@ -1,4 +1,4 @@
-package org.jggug.grails.plugin.interactiveproxy
+package org.jggug.kobo.grails.plugin.improx
 
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 import java.util.concurrent.atomic.AtomicBoolean
@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicBoolean
  * Listen a port and execute a command specified by a client.
  */
 @Singleton
-class InteractiveProxyServer {
+class InteractiveModeProxyServer {
 
     private static final int DEFAULT_PORT = 8081
     private static final int TIMEOUT = 1000
@@ -19,7 +19,7 @@ class InteractiveProxyServer {
 
     void start() {
         if (available.get()) {
-            System.err.println("Interactive proxy server is already running on port $port.")
+            System.err.println("Interactive-mode proxy server is already running on port $port.")
             return
         }
         try {
@@ -27,14 +27,14 @@ class InteractiveProxyServer {
             startServer()
         }
         catch (Throwable e) {
-            System.err.println("Failed to invoke InteractiveProxyServer.")
+            System.err.println("Failed to invoke interactive-mode proxy server.")
             e.printStackTrace()
         }
     }
 
     void stop() {
         if (!available.get()) {
-            System.err.println "Interactive proxy server is already stopped."
+            System.err.println "Interactive-mode proxy server is already stopped."
             return
         }
         available.set(false)
@@ -47,7 +47,7 @@ class InteractiveProxyServer {
         Thread.start {
             handleRequest()
         }
-        println "Interactive proxy server started with port ${port}."
+        println "Interactive-mode proxy server started with port ${port}."
     }
 
     // TODO state management is not good enough
@@ -64,7 +64,7 @@ class InteractiveProxyServer {
             }
         } finally {
             serverSocket?.close()
-            println "Interactive proxy server stopped."
+            println "Interactive-mode proxy server stopped."
         }
     }
 
@@ -92,9 +92,7 @@ class InteractiveProxyServer {
     }
 
     private static int getPortNumber() {
-        return (System.getProperty("interactive.proxy.port") ?: DEFAULT_PORT) as int
+        return (System.getProperty("improx.port") ?: DEFAULT_PORT) as int
     }
-
-
 
 }

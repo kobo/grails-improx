@@ -1,17 +1,17 @@
 //
-// usage: groovy gim-client.groovy <COMMAND_LINE>
-//        groovyclient gim-client.groovy <COMMAND_LINE>  (RECOMMENDED)
+// usage: groovy improx-client.groovy <COMMAND_LINE>
+//        groovyclient improx-client.groovy <COMMAND_LINE>  (RECOMMENDED)
 //
 //  e.g.
-//    grooovy gim-client.groovy help
-//    grooovy gim-client.groovy test-app unit: TheDomainTest
+//    grooovy improx-client.groovy help
+//    grooovy improx-client.groovy test-app unit: TheDomainTest
 //
 
 //---------------------------------------
 // Definition
 //
 
-class GimProxyClient {
+class InteractiveModeProxyClient {
 
     private static final int DEFAULT_PORT = 8081
     private Socket socket
@@ -31,7 +31,7 @@ class GimProxyClient {
     }
 
     private getPort() {
-        (System.getProperty("interactive.proxy.port") ?: DEFAULT_PORT) as int
+        (System.getProperty("improx.port") ?: DEFAULT_PORT) as int
     }
 
     private connect(int port) {
@@ -39,8 +39,8 @@ class GimProxyClient {
             socket = new Socket("localhost", port)
         } catch (ConnectException e) {
             System.err.println "ERROR: Failed to connect to server via port $port."
-            System.err.println " Install grails-interactive-proxy plugin into your application"
-            System.err.println " and invoke start-interactive-proxy before connecting."
+            System.err.println " Install grails-interactive-mode-proxy plugin into your application"
+            System.err.println " and invoke start-interactive-mode-proxy before connecting."
             System.exit 1
         }
     }
@@ -79,5 +79,5 @@ class GimProxyClient {
 //
 
 String command = args.join(' ')
-new GimProxyClient().invoke(command)
+new InteractiveModeProxyClient().invoke(command)
 

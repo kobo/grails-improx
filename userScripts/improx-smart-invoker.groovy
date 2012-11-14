@@ -1,12 +1,12 @@
 //
-// usage: groovy gim-smart-invoker.groovy <TARGET_FILE_PATH>
-//        groovyclient gim-smart-invoker.groovy <TARGET_FILE_PATH>  (RECOMMENDED)
+// usage: groovy improx-smart-invoker.groovy <TARGET_FILE_PATH>
+//        groovyclient improx-smart-invoker.groovy <TARGET_FILE_PATH>  (RECOMMENDED)
 //
 // This script try to invoke TARGET_FILE_PATH by the following invokers.
 //
 // [grails-interactive-mode-proxy]
 //    If a target *.groovy file under a test directory of a Grails' project,
-//    it's executed by grails's test-app with appropriate test type via interactive proxy.
+//    it's executed by grails's test-app with appropriate test type via interactive-mode proxy.
 //
 // [GroovyServ]
 //    If GroovyServ is installed, a target *.groovy is executed by groovyclient of GroovyServ.
@@ -19,7 +19,7 @@
 // Definition
 //
 
-def groovyFileOf(String path) {
+def groovyFileOf = { String path ->
     def file = new File(path)
     if (!file.exists()) {
         System.err.println "ERROR: File not found: ${path}"
@@ -32,13 +32,13 @@ def groovyFileOf(String path) {
     return file
 }
 
-class GimProxyInvoker {
+class InteractiveModeProxyInvoker {
     boolean invoke(File file) {
         def testType = testType(file)
         if (!testType) return false
 
         def fqcn = fullQualifiedClassName(file)
-        invokeViaInteractiveProxy(['test-app', testType , fqcn].join(' '))
+        invokeViaProxy(['test-app', testType , fqcn].join(' '))
         return true
     }
 
@@ -62,8 +62,8 @@ class GimProxyInvoker {
         return className
     }
 
-    private invokeViaInteractiveProxy(command) {
-        new GimProxyClient().invoke(command)
+    private invokeViaProxy(command) {
+        new InteractiveModeProxyClient().invoke(command)
     }
 }
 
@@ -98,7 +98,7 @@ class NotFoundInvoker {
 class ChainOfInvokers {
     boolean invoke(File file) {
         [
-            new GimProxyInvoker(),
+            new InteractiveModeProxyInvoker(),
             new SimpleInvoker(exec: 'groovyclient'),
             new SimpleInvoker(exec: 'groovy'),
             new NotFoundInvoker(),
@@ -106,7 +106,7 @@ class ChainOfInvokers {
     }
 }
 
-class GimProxyClient {
+class InteractiveModeProxyClient {
 
     private static final int DEFAULT_PORT = 8081
     private Socket socket
@@ -126,7 +126,7 @@ class GimProxyClient {
     }
 
     private getPort() {
-        (System.getProperty("interactive.proxy.port") ?: DEFAULT_PORT) as int
+        (System.getProperty("improx.port") ?: DEFAULT_PORT) as int
     }
 
     private connect(int port) {
@@ -134,8 +134,8 @@ class GimProxyClient {
             socket = new Socket("localhost", port)
         } catch (ConnectException e) {
             System.err.println "ERROR: Failed to connect to server via port $port."
-            System.err.println " Install grails-interactive-proxy plugin into your application"
-            System.err.println " and invoke start-interactive-proxy before connecting."
+            System.err.println " Install grails-interactive-mode-proxy plugin into your application"
+            System.err.println " and invoke start-interactive-mode-proxy before connecting."
             System.exit 1
         }
     }
