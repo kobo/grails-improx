@@ -1,26 +1,22 @@
-//==============================
-// Grails/Groovy Smart Runner
-//==============================
-
 //
 // Supported types:
 //
-// [grails-interactive-proxy]
-//    If target *.groovy file under Grails' project directory,
-//    it's executed by grails test runner via interactive proxy.
+// [grails-interactive-mode-proxy]
+//    If a target *.groovy file under a test directory of a Grails' project,
+//    it's executed by grails's test-app with appropriate test type via interactive proxy.
 //
 // [GroovyServ]
-//    If GroovyServ is installed, target *.groovy is executed by GroovyServ.
+//    If GroovyServ is installed, a target *.groovy is executed by GroovyServ.
 //
 // [Groovy]
-//    The target *.groovy is executed by Groovy.
+//    A target *.groovy is executed by Groovy.
 //
 
-//---------
-// Helper
-//---------
+//-------------
+// Definition
+//-------------
 
-def groovyFileOf = { String path ->
+def groovyFileOf(String path) {
     def file = new File(path)
     if (!file.exists()) {
         System.err.println "ERROR: File not found: ${path}"
@@ -33,7 +29,7 @@ def groovyFileOf = { String path ->
     return file
 }
 
-class GrailsInteractiveProxyInvoker {
+class GimProxyInvoker {
     boolean invoke(File file) {
         def testType = testType(file)
         if (!testType) return false
@@ -64,8 +60,7 @@ class GrailsInteractiveProxyInvoker {
     }
 
     private invokeViaInteractiveProxy(command) {
-        // TOOO
-        println command
+        new GimProxyClient().invoke(command)
     }
 }
 
@@ -100,11 +95,74 @@ class NotFoundInvoker {
 class ChainOfInvokers {
     boolean invoke(File file) {
         [
-            new GrailsInteractiveProxyInvoker(),
+            new GimProxyInvoker(),
             new SimpleInvoker(exec: 'groovyclient'),
             new SimpleInvoker(exec: 'groovy'),
             new NotFoundInvoker(),
         ].find { it.invoke(file) }
+    }
+}
+
+class GimProxyClient {
+
+    private static final int DEFAULT_PORT = 8081
+    private Socket socket
+
+    def invoke(String command) {
+        validate(command)
+        connect(port)
+        send(command)
+        waitForResult()
+    }
+
+    private validate(String command) {
+        if (command.trim().empty) {
+            System.err.println "ERROR: Command not found."
+            System.exit 1
+        }
+    }
+
+    private getPort() {
+        (System.getProperty("interactive.proxy.port") ?: DEFAULT_PORT) as int
+    }
+
+    private connect(int port) {
+        try {
+            socket = new Socket("localhost", port)
+        } catch (ConnectException e) {
+            System.err.println "ERROR: Failed to connect to server via port $port."
+            System.err.println " Install grails-interactive-proxy plugin into your application"
+            System.err.println " and invoke start-interactive-proxy before connecting."
+            System.exit 1
+        }
+    }
+
+    private send(String command) {
+        socket << command << "\n"
+    }
+
+    private waitForResult() {
+        socket.withStreams { ins, out ->
+            while (true) {
+                def (text, eof) = readLine(ins)
+                println text
+                if (eof) {
+                    System.exit 0
+                }
+            }
+        }
+    }
+
+    private readLine(InputStream ins) {
+        def out = new ByteArrayOutputStream()
+        int ch
+        while ((ch = ins.read()) != -1) {
+            if (ch == '\n') { // LF (fixed)
+                return [out.toString(), false] // 2nd arg is EOF flag
+            }
+            out.write((byte) ch)
+        }
+        return [out.toString(), true] // 2nd arg is EOF flag
     }
 }
 
@@ -114,6 +172,4 @@ class ChainOfInvokers {
 
 def path = args ? args[0] : '<NO_ARGUMENT>'
 new ChainOfInvokers().invoke(groovyFileOf(path))
-
-// TODO Windows path
 
