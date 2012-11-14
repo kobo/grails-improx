@@ -1,6 +1,15 @@
-//======================================
-// Grails Interactive-Mode Proxy Client
-//======================================
+//
+// usage: groovy gim-client.groovy <COMMAND_LINE>
+//        groovyclient gim-client.groovy <COMMAND_LINE>  (RECOMMENDED)
+//
+//  e.g.
+//    grooovy gim-client.groovy help
+//    grooovy gim-client.groovy test-app unit: TheDomainTest
+//
+
+//---------------------------------------
+// Definition
+//
 
 class GimProxyClient {
 
@@ -64,6 +73,10 @@ class GimProxyClient {
         return [out.toString(), true] // 2nd arg is EOF flag
     }
 }
+
+//---------------------------------------
+// Main
+//
 
 String command = args.join(' ')
 new GimProxyClient().invoke(command)

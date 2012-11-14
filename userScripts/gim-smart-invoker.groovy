@@ -1,20 +1,23 @@
 //
-// Supported types:
+// usage: groovy gim-smart-invoker.groovy <TARGET_FILE_PATH>
+//        groovyclient gim-smart-invoker.groovy <TARGET_FILE_PATH>  (RECOMMENDED)
+//
+// This script try to invoke TARGET_FILE_PATH by the following invokers.
 //
 // [grails-interactive-mode-proxy]
 //    If a target *.groovy file under a test directory of a Grails' project,
 //    it's executed by grails's test-app with appropriate test type via interactive proxy.
 //
 // [GroovyServ]
-//    If GroovyServ is installed, a target *.groovy is executed by GroovyServ.
+//    If GroovyServ is installed, a target *.groovy is executed by groovyclient of GroovyServ.
 //
 // [Groovy]
 //    A target *.groovy is executed by Groovy.
 //
 
-//-------------
+//---------------------------------------
 // Definition
-//-------------
+//
 
 def groovyFileOf(String path) {
     def file = new File(path)
@@ -166,9 +169,9 @@ class GimProxyClient {
     }
 }
 
-//---------
+//---------------------------------------
 // Main
-//---------
+//
 
 def path = args ? args[0] : '<NO_ARGUMENT>'
 new ChainOfInvokers().invoke(groovyFileOf(path))
