@@ -39,8 +39,7 @@ class InteractiveModeProxyClient {
             socket = new Socket("localhost", port)
         } catch (ConnectException e) {
             System.err.println "ERROR: Failed to connect to server via port $port."
-            System.err.println " Install grails-interactive-mode-proxy plugin into your application"
-            System.err.println " and invoke start-interactive-mode-proxy before connecting."
+            System.err.println " Install improx plugin into your project and invoke improx-start before connecting."
             System.exit 1
         }
     }
