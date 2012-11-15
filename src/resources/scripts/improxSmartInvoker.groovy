@@ -78,7 +78,7 @@ class SimpleInvoker {
             printIfNotEmpty proc.err.text
             return true
         } catch (IOException e) {
-            if (e.message =~ /^Cannot run program/) return false
+            if (e.message.startsWith('Cannot run program')) return false
             throw e
         }
     }
