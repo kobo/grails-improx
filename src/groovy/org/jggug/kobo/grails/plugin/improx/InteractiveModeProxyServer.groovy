@@ -1,7 +1,6 @@
 package org.jggug.kobo.grails.plugin.improx
 
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
-import java.util.concurrent.atomic.AtomicBoolean
 
 /**
  * Listen a port and execute a command specified by a client.
@@ -15,60 +14,59 @@ class InteractiveModeProxyServer {
     private ServerSocket serverSocket
     private int port
 
-    private AtomicBoolean available = new AtomicBoolean(false)
-
-    void start() {
-        if (available.get()) {
-            System.err.println("Interactive-mode proxy server is already running on port $port.")
+    synchronized void start() {
+        port = resolvePort()
+        if (serverSocket) {
+            System.err.println("Interactive-mode proxy server is already running on $port port.")
             return
         }
         try {
-            available.set(true)
-            startServer()
+            serverSocket = startServer(port)
+        }
+        catch (BindException e) {
+            System.err.println("$port port is already in use by another process.")
+            return
         }
         catch (Throwable e) {
-            System.err.println("Failed to invoke interactive-mode proxy server.")
+            System.err.println("Failed to invoke interactive-mode proxy server on $port port.")
             e.printStackTrace()
         }
     }
 
-    void stop() {
-        if (!available.get()) {
-            System.err.println "Interactive-mode proxy server is already stopped."
+    synchronized void stop() {
+        if (!serverSocket) {
+            System.err.println "Interactive-mode proxy server hasn't started yet."
             return
         }
-        available.set(false)
+        serverSocket.close() // to cause SocketException intentionally
+        serverSocket = null
     }
 
-    private void startServer() {
-        port = getPortNumber()
-        serverSocket = new ServerSocket(port)
-        serverSocket.setSoTimeout(TIMEOUT)
+    private static ServerSocket startServer(int port) throws BindException {
+        def serverSocket = new ServerSocket(port)
         Thread.start {
-            handleRequest()
+            handleRequest(serverSocket)
         }
-        println "Interactive-mode proxy server started with port ${port}."
+        println "Interactive-mode proxy server has started on $port port."
+        return serverSocket
     }
 
-    // TODO state management is not good enough
-    private void handleRequest() {
+    private static void handleRequest(ServerSocket serverSocket) {
         try {
-            while (available.get()) {
-                try {
-                    def socket = serverSocket.accept()
-                    executeCommand(socket)
-
-                } catch (SocketTimeoutException e) {
-                    // do nothing
-                }
+            while (true) {
+                def socket = serverSocket.accept()
+                executeCommand(socket)
+            }
+        } catch (SocketException e) {
+            if (!e.message.startsWith("Socket closed")) {
+                e.printStackTrace()
             }
         } finally {
-            serverSocket?.close()
             println "Interactive-mode proxy server stopped."
         }
     }
 
-    private void executeCommand(Socket socket) {
+    private static void executeCommand(Socket socket) {
         def command = retrieveCommand(socket)
         if (!command) {
             System.err.println("Command not found.")
@@ -87,11 +85,11 @@ class InteractiveModeProxyServer {
         }
     }
 
-    private String retrieveCommand(Socket socket) {
+    private static String retrieveCommand(Socket socket) {
         return IOUtils.readLine(socket.inputStream)?.trim()
     }
 
-    private static int getPortNumber() {
+    private static int resolvePort() {
         return (System.getProperty("improx.port") ?: DEFAULT_PORT) as int
     }
 
