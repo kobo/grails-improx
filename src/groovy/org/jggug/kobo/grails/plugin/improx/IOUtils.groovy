@@ -1,6 +1,7 @@
 package org.jggug.kobo.grails.plugin.improx
 
 import grails.build.logging.GrailsConsole
+import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 import org.codehaus.groovy.grails.cli.logging.GrailsConsoleErrorPrintStream
 import org.codehaus.groovy.grails.cli.logging.GrailsConsolePrintStream
 
@@ -18,36 +19,38 @@ class IOUtils {
         return out.toString()
     }
 
-    // TODO Refactoring
     static void withSocketOutputStreamAsOutAndErr(Socket socket, Closure closure) {
+        // Save originals
         def originals = [
             in: System.in,
             out: System.out,
             err: System.err,
-            grailsConsoleOut: GrailsConsole.instance.out
+            grailsConsole: GrailsConsole.instance
         ]
-
-        System.in = socket.inputStream
-        def baseOut = new PrintStream(socket.outputStream)
-        System.out = new GrailsConsolePrintStream(baseOut)
-        System.err = new GrailsConsoleErrorPrintStream(baseOut)
-        GrailsConsole.instance.with {
-            out = baseOut
-            ansiEnabled = false
-            userInputActive = false // FIXME Hack to hide a prompt string each line.
-        }
-
         try {
+            // this is important to make the stdout output to socket instead of console.
+            GrailsConsole.instance = SimpleGrailsConsole.createInstance(socket.outputStream)
+
+            // GrailsScriptRunner use the cached console instance.
+            InteractiveMode.current.scriptRunner.console = GrailsConsole.instance
+
+            // Replace System.xxx
+            System.in = socket.inputStream
+            System.out = new GrailsConsolePrintStream(socket.outputStream)
+            System.err = new GrailsConsoleErrorPrintStream(socket.outputStream)
+
+            // Invoke
             closure.call()
+
         } finally {
+            // Restore
             System.in = originals.in
             System.out = originals.out
             System.err = originals.err
-            GrailsConsole.instance.with {
-                out = originals.grailsConsoleOut
-                ansiEnabled = true
-            }
+            GrailsConsole.instance = originals.grailsConsole
+            InteractiveMode.current.console = originals.grailsConsole
+            InteractiveMode.current.scriptRunner.console = originals.grailsConsole
         }
-
     }
+
 }

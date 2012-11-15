@@ -1,5 +1,6 @@
 package org.jggug.kobo.grails.plugin.improx
 
+import grails.build.logging.GrailsConsole
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 
 /**
@@ -25,7 +26,6 @@ class InteractiveModeProxyServer {
         }
         catch (BindException e) {
             System.err.println("$port port is already in use by another process.")
-            return
         }
         catch (Throwable e) {
             System.err.println("Failed to invoke interactive-mode proxy server on $port port.")
@@ -72,16 +72,22 @@ class InteractiveModeProxyServer {
             System.err.println("Command not found.")
             return
         }
-        println "Received command '${command}' from port ${socket.port}."
+
+        // the before/after 'flush' need to control a line separator rightly on interactive-mode console.
+        GrailsConsole.instance.flush()
+        println "'${command}' (Received from port ${socket.port})"
         try {
             IOUtils.withSocketOutputStreamAsOutAndErr(socket) {
-                InteractiveMode.current?.parseAndExecute(command)
+                try {
+                    InteractiveMode.current?.parseAndExecute(command)
+                } catch (e) {
+                    System.err.println("Failed to execute command: ${command}")
+                    e.printStackTrace()
+                }
             }
-        } catch (e) {
-            System.err.println("Failed to execute command: ${command}")
-            e.printStackTrace()
         } finally {
             socket?.close()
+            GrailsConsole.instance.flush()
         }
     }
 
