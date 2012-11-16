@@ -16,75 +16,81 @@
 //
 
 //---------------------------------------
+// Config
+//
+
+// This script expects the commands will find in PATH environment variable.
+// If you don't want to use PATH environment variable, change the following lines.
+class Config {
+    static final GRAILS_BIN = 'grails'
+    static final GROOVYCLIENT_BIN = 'groovyclient'
+    static final GROOVY_BIN = 'groovy'
+}
+
+//---------------------------------------
 // Definition
 //
 
-def groovyFileOf = { String path ->
-    def file = new File(path)
-    if (!file.exists()) {
-        System.err.println "ERROR: File not found: ${path}"
-        System.exit 1
+class ChainOfInvokers {
+    boolean invoke(File file) {
+        [
+            new GrailsInvoker(),
+//            new SimpleInvoker(exec: Config.GROOVYCLIENT_BIN),
+            new SimpleInvoker(exec: Config.GROOVY_BIN),
+            new NotFoundInvoker(),
+        ].find { it.invoke(file) }
     }
-    if (!(file.name =~ /.*\.groovy$/)) {
-        System.err.println "ERROR: Not groovy file: ${path}"
-        System.exit 1
-    }
-    return file
 }
 
-class InteractiveModeProxyInvoker {
+class GrailsInvoker {
     boolean invoke(File file) {
-        def testType = testType(file)
-        if (!testType) return false
+        def params = parseParams(file)
+        if (!params) return false
 
-        def fqcn = fullQualifiedClassName(file)
-        invokeViaProxy(['test-app', testType , fqcn].join(' '))
+        def invokeMethod = resolveInvokeMethod(params.testType)
+
+        invokeMethod.call(params.testType, params.className, params.projectDir)
         return true
     }
 
-    private testType(File file) {
-        switch (file.absolutePath) {
-            case ~'.*/test/unit/.*':
-                return 'unit:'
-            case ~'.*/test/integration/.*':
-                return 'integration:'
-            case ~'.*/test/functional/.*':
-                System.err.println "ERROR: Functional test not supported: ${file}"
-                System.exit 1
+    private parseParams(File file) {
+        def matcher = (file.absolutePath =~ '^(.*)/test/(unit|integration|functional)/(.*)$')
+        if (matcher.find()) {
+            def projectDir = new File(matcher.group(1))
+            def testType = matcher.group(2)
+            def relativePathFromPackageRoot = matcher.group(3)
+            def className = (relativePathFromPackageRoot - '.groovy').replaceAll('/', '.')
+            return [projectDir:projectDir, testType:testType, className:className]
+        }
+        return null
+    }
+
+    private resolveInvokeMethod(testType) {
+        switch (testType) {
+            case 'unit':
+            case 'integration':
+                return this.&invokeInteractiveModeProxy
+            case 'functional':
+                return this.&invokeGrails
             default:
-                return null
+                assert false : 'already passed parseParams()'
         }
     }
 
-    private fullQualifiedClassName(File file) {
-        def relativePathFromPackageRoot = file.absolutePath.replaceFirst('.*/test/.*?/', '')
-        def className = (relativePathFromPackageRoot - '.groovy').replaceAll('/', '.')
-        return className
+    private invokeInteractiveModeProxy(testType, className, projectDir) {
+        new InteractiveModeProxyClient().invoke(['test-app', "${testType}:", className].join(' '))
     }
 
-    private invokeViaProxy(command) {
-        new InteractiveModeProxyClient().invoke(command)
+    private invokeGrails(testType, className, projectDir) {
+        ProcessUtil.execute([Config.GRAILS_BIN, 'test-app', "${testType}:" , className], projectDir)
     }
 }
 
 class SimpleInvoker {
-    def exec
+    String exec
 
     boolean invoke(File file) {
-        try {
-            def proc = [exec, file.absolutePath].execute()
-            proc.waitFor()
-            printIfNotEmpty proc.in.text
-            printIfNotEmpty proc.err.text
-            return true
-        } catch (IOException e) {
-            if (e.message.startsWith('Cannot run program')) return false
-            throw e
-        }
-    }
-
-    private printIfNotEmpty(text) {
-        if (text.trim()) print text
+        ProcessUtil.execute([exec, file.absolutePath])
     }
 }
 
@@ -95,14 +101,34 @@ class NotFoundInvoker {
     }
 }
 
-class ChainOfInvokers {
-    boolean invoke(File file) {
-        [
-            new InteractiveModeProxyInvoker(),
-            new SimpleInvoker(exec: 'groovyclient'),
-            new SimpleInvoker(exec: 'groovy'),
-            new NotFoundInvoker(),
-        ].find { it.invoke(file) }
+class ProcessUtil {
+    static execute(List command, File currentDir = null) {
+        if (currentDir) {
+            println "Executing '${command.join(' ')}' at ${currentDir} ..."
+            doExecute { command.execute([], currentDir) }
+        } else {
+            println "Executing '${command.join(' ')}' ..."
+            doExecute { command.execute() }
+        }
+    }
+
+    private static doExecute(closure) {
+        try {
+            def proc = closure.call()
+
+            // Delegate stdout/stderr to System.out/err
+            // it's very important to disable a close method, because waitForProcessOutput
+            // will automatically close the streams.
+            def out = new FilterOutputStream(System.out) { void close() { /* do nothing */ } }
+            def err = new FilterOutputStream(System.err) { void close() { /* do nothing */ } }
+            proc.waitForProcessOutput(out, err)
+
+            return true
+
+        } catch (IOException e) {
+            if (e.message =~ /^Cannot run program/) return false
+            throw e
+        }
     }
 }
 
@@ -112,6 +138,7 @@ class InteractiveModeProxyClient {
     private Socket socket
 
     def invoke(String command) {
+        println "Invoking '${command}' via interactive-mode proxy..."
         validate(command)
         connect(port)
         send(command)
@@ -134,8 +161,7 @@ class InteractiveModeProxyClient {
             socket = new Socket("localhost", port)
         } catch (ConnectException e) {
             System.err.println "ERROR: Failed to connect to server via port $port."
-            System.err.println " Install grails-interactive-mode-proxy plugin into your application"
-            System.err.println " and invoke start-interactive-mode-proxy before connecting."
+            System.err.println " Install improx plugin into your application and invoke improx-start before connecting."
             System.exit 1
         }
     }
@@ -167,6 +193,19 @@ class InteractiveModeProxyClient {
         }
         return [out.toString(), true] // 2nd arg is EOF flag
     }
+}
+
+def groovyFileOf = { String path ->
+    def file = new File(path)
+    if (!file.exists()) {
+        System.err.println "ERROR: File not found: ${path}"
+        System.exit 1
+    }
+    if (!(file.name =~ /.*\.groovy$/)) {
+        System.err.println "ERROR: Not groovy file: ${path}"
+        System.exit 1
+    }
+    return file
 }
 
 //---------------------------------------

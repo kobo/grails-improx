@@ -17,6 +17,7 @@ class InteractiveModeProxyClient {
     private Socket socket
 
     def invoke(String command) {
+        println "Invoking '${command}' via interactive-mode proxy..."
         validate(command)
         connect(port)
         send(command)
@@ -39,7 +40,7 @@ class InteractiveModeProxyClient {
             socket = new Socket("localhost", port)
         } catch (ConnectException e) {
             System.err.println "ERROR: Failed to connect to server via port $port."
-            System.err.println " Install improx plugin into your project and invoke improx-start before connecting."
+            System.err.println " Install improx plugin into your application and invoke improx-start before connecting."
             System.exit 1
         }
     }
