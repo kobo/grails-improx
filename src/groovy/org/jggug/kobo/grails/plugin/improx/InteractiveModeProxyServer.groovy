@@ -10,10 +10,10 @@ import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 class InteractiveModeProxyServer {
 
     private static final int DEFAULT_PORT = 8081
-    private static final int TIMEOUT = 1000
 
     private ServerSocket serverSocket
     private int port
+
 
     synchronized void start() {
         port = resolvePort()
@@ -53,6 +53,7 @@ class InteractiveModeProxyServer {
 
     private static void handleRequest(ServerSocket serverSocket) {
         try {
+            // handle each request sequentially because parallel running must cause a race condition.
             while (true) {
                 def socket = serverSocket.accept()
                 executeCommand(socket)
