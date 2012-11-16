@@ -40,7 +40,10 @@ class InteractiveModeProxyClient {
             socket = new Socket("localhost", port)
         } catch (ConnectException e) {
             System.err.println "ERROR: Failed to connect to server via port $port."
-            System.err.println " Install improx plugin into your application and invoke improx-start before connecting."
+            System.err.println """\
+                |  Before connecting, install 'improx' plugin into your application,
+                |  and run the 'improx-start' command on interactive-mode of the application.
+                |""".stripMargin()
             System.exit 1
         }
     }
