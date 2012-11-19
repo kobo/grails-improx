@@ -35,7 +35,7 @@ class ChainOfInvokers {
     boolean invoke(File file) {
         [
             new GrailsInvoker(),
-//            new SimpleInvoker(exec: Config.GROOVYCLIENT_BIN),
+            new SimpleInvoker(exec: Config.GROOVYCLIENT_BIN),
             new SimpleInvoker(exec: Config.GROOVY_BIN),
             new NotFoundInvoker(),
         ].find { it.invoke(file) }
