@@ -1,5 +1,9 @@
 includeTargets << grailsScript("Compile")
 
+USAGE = """
+    grails improx-stop
+"""
+
 target(main: "Stop interactive-mode proxy server") {
     depends "compile"
 

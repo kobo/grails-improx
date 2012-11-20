@@ -1,6 +1,10 @@
 includeTargets << grailsScript('_GrailsInit')
 
-target(main: 'Installs the improxy resources') {
+USAGE = """
+    grails improx-install-resources
+"""
+
+target(main: 'Installs the improxy resources into the project directory') {
     def targetDir = "${basedir}/improx-resources"
     ant.copy(todir: targetDir) {
         fileset dir: "${improxPluginDir}/src/resources"
