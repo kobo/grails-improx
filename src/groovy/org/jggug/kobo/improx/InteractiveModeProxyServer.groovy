@@ -15,12 +15,12 @@ class InteractiveModeProxyServer {
     private int port
 
     synchronized void start() {
-        port = resolvePort()
         if (serverSocket) {
             System.err.println("Interactive-mode proxy server is already running on $port port.")
             return
         }
         try {
+            port = resolvePort()
             serverSocket = startServer(port)
         }
         catch (BindException e) {
