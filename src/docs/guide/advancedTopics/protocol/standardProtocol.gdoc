@@ -1,0 +1,25 @@
+The @improx-start@ command opens and listens a TCP port as a server.
+
+h3. Request from Client to Server
+
+A client sends a command line with a line separator as request.
+
+{code}
+COMMAND
+{code}
+
+Examples:
+
+{code}
+help
+{code}
+
+{code}
+test-app unit: sample.SampleUnitTests
+{code}
+
+h3. Response from Server to Client
+
+While a server is sending a response, a client can read the response from a keep-aliving socket.
+When the server finishes sending all response to the client, the socket will be closed by the server.
+The client knows that the session is done by closing the socket.

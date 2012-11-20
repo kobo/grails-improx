@@ -1,0 +1,17 @@
+Run the improx proxy server on *interactive mode*:
+
+{code}
+grails> improx-start
+Interactive mode proxy server has started on 8096 port.
+{code}
+
+{warning}
+It doesn't support not on interactive mode.
+{warning}
+
+You can stop the server anytime using @improx-stop@ command.
+
+{code}
+grails> improx-stop
+Interactive mode proxy server stopped.
+{code}

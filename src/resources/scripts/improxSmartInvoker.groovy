@@ -22,7 +22,7 @@
 // [grails-improx plugin]
 //    If the target is a .groovy file under either a test/unit or a test/integration directory
 //    of a Grails project, it's executed by grails's test-app with appropriate test type via
-//    interactive-mode proxy.
+//    interactive mode proxy.
 //
 // [Grails]
 //    If the target is a .groovy file under a test/functional directory of a Grails project,
@@ -158,7 +158,7 @@ class InteractiveModeProxyClient {
     private Socket socket
 
     def invoke(String command) {
-        println "Invoking '${command}' via interactive-mode proxy..."
+        println "Invoking '${command}' via interactive mode proxy..."
         validate(command)
         connect(port)
         send(command)
@@ -183,7 +183,7 @@ class InteractiveModeProxyClient {
             System.err.println "ERROR: Failed to connect to server via port $port."
             System.err.println """\
                 |  Before connecting, install 'improx' plugin into your application, and
-                |  run the 'improx-start' command on interactive-mode of the application.
+                |  run the 'improx-start' command on interactive mode of the application.
                 |""".stripMargin()
             System.exit 1
         }

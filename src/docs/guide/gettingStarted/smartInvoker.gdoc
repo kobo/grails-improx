@@ -1,0 +1,41 @@
+A simple client as the above isn't convenient very much in order to invoke a test file from editors or IDEs,
+because it needs a complicated construction of arguments for each test type.
+So the improx plugin provides smart invoker scripts, which can invoke any @.groovy@ file in an appropriate way.
+
+For giving more benefit, you should set up your editor or IDE to be able to integrate with this plugin.
+See [the next chapter|guide:integrationWithEditors].
+
+h3. Shell Script
+
+If shell script is available in your environment, you can use [improxSmartInvoker.sh|clientScripts].
+
+{code}
+improxSmartInvoker.sh /path/to/yourApp/test/unit/sample/SampleUnitTests.groovy --[1]
+improxSmartInvoker.sh /path/to/yourApp/test/integration/sample/SampleIntegTests.groovy --[2]
+improxSmartInvoker.sh /path/to/yourApp/test/functional/sample/SampleFuncTests.groovy --[3]
+improxSmartInvoker.sh /path/to/scriptDir/myTribialScript.groovy --[4]
+{code}
+
+* @\[1\]@ invokes '@test-app unit: sample.SampleUnitTests@' on the interactive mode.
+* @\[2\]@ invokes '@test-app integration: sample.SampleIntegTests@' on the interactive mode.
+* @\[3\]@ invokes '@grails test-app functional: sample.SampleFuncTests@' as new standalone Grails process.
+* @\[4\]@ invokes '@groovy /path/to/scriptDir/myTribialScript.groovy@' as a normal Groovy script.\
+  If you've istalled GroovyServ, the @groovyclient@ is automatically used instead of @groovy@ command.
+
+h3. Groovy Script
+
+If there is @groovy@ command in your environment, you can use [improxSmartInvoker.groovy|clientScripts].
+
+{code}
+groovy improxSmartInvoker.groovy /path/to/yourApp/test/unit/sample/SampleUnitTests.groovy --[1]
+groovy improxSmartInvoker.groovy /path/to/yourApp/test/integration/sample/SampleIntegTests.groovy --[2]
+groovy improxSmartInvoker.groovy /path/to/yourApp/test/functional/sample/SampleFuncTests.groovy --[3]
+groovy improxSmartInvoker.groovy /path/to/scriptDir/myTribialScript.groovy --[4]
+{code}
+
+* @\[1\]@ invokes '@test-app unit: sample.SampleUnitTests@' on the interactive mode.
+* @\[2\]@ invokes '@test-app integration: sample.SampleIntegTests@' on the interactive mode.
+* @\[3\]@ invokes '@grails test-app functional: sample.SampleFuncTests@' as new standalone Grails process.
+* @\[4\]@ invokes '@groovy /path/to/scriptDir/myTribialScript.groovy@' as a normal Groovy script.\
+  If you've istalled GroovyServ, the @groovyclient@ is automatically used instead of @groovy@ command.
+

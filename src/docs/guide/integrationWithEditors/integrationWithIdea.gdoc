@@ -1,0 +1,50 @@
+h3. External Tools
+
+# Open Settings dialog from _"Preferences"_ menu.
+# Select _"External Tools"_ at left pane.
+# Click the below _"+"_ button to show _"Edit Tool"_ dialog:\
+    !idea-external-tools-add.png!
+# Set the fields as follows if shell script is available in your environment:\
+    {table}
+     *Field*           | *Value*                          | *Remarks*
+     Name              | @Improx: SmartInvoker \[sh\]@    |
+     Group             | @Grails@                         |
+     Program           | @/path/to/improxSmartInvoker.sh@ |
+     Parameters        | @$FilePath$@                     |
+     Working directory | @$FileDir$@                      |
+    {table}\
+    !idea-external-tools-edit-sh.png!\
+    Else:\
+    {table}
+     *Field*           | *Value*                                     | *Remarks*
+     Name              | @Improx: SmartInvoker \[Groovy\]@           |
+     Group             | @Grails@                                    |
+     Program           | @/path/to/groovyclient@                     | You can use normal @groovy@ command, but it needs a global @JAVA_HOME@ environment variable and your patience.
+     Parameters        | @/path/to/improxSmartInvoker.sh $FilePath$@ | using a white space as delimiter
+     Working directory | @$FileDir$@                                 |
+    {table}\
+    !idea-external-tools-edit-groovy.png!
+# Click _"OK"_ button to save.
+
+
+h3. Keymap
+
+# Open Settings dialog from _"Preferences"_ menu.
+# Select _"Keymap"_ at left pane.
+# Right-click _"External Tools > Grails > Improx: SmartInvoker [(which you want)]"_ item at right pane and select _"Add Keyboard Shortcut"_ item:\
+    !idea-keymap-menu.png!
+# Push your favorite key at _"First Stroke"_ field on the _"Enter Keyboard Shortcut"_ dialog:\
+    !idea-keymap-bind.png!
+# Click _"OK"_ button to save.
+
+
+h3. Try to run
+
+# Open a test class in the editor.
+# Push the key which you set, for example, @F9@.
+# Improx plugin run only the active test file and output the result to _"Run"_ view in real time:\
+    !idea-run.png!
+
+{note}
+In case of using GroovyServ, you should run @groovyserver@ command at once in advance.
+{note}

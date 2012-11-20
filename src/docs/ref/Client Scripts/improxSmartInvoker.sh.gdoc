@@ -1,0 +1,39 @@
+h1. improxSmartInvoker.sh
+
+h2. Purpose
+
+The @improxSmartInvoker.sh@ script invokes any @.groovy@ file in an appropriate way.
+
+This script is very useful for invoking from editors or IDEs.
+All you have to do is to register it as _External Tools_.
+
+h2. Examples
+
+{code}
+improxSmartInvoker.sh /path/to/yourApp/test/unit/sample/SampleUnitTests.groovy --[1]
+improxSmartInvoker.sh /path/to/yourApp/test/integration/sample/SampleIntegTests.groovy --[2]
+improxSmartInvoker.sh /path/to/yourApp/test/functional/sample/SampleFuncTests.groovy --[3]
+improxSmartInvoker.sh /path/to/scriptDir/myTribialScript.groovy --[4]
+{code}
+
+* @\[1\]@ invokes '@test-app unit: sample.SampleUnitTests@' on the interactive mode.
+* @\[2\]@ invokes '@test-app integration: sample.SampleIntegTests@' on the interactive mode.
+* @\[3\]@ invokes '@grails test-app functional: sample.SampleFuncTests@' as new standalone Grails process.
+* @\[4\]@ invokes '@groovy /path/to/scriptDir/myTribialScript.groovy@' as a normal Groovy script.\
+  If you've istalled GroovyServ, the @groovyclient@ is automatically used instead of @groovy@ command.
+
+h2. Description
+
+Usage:
+
+{code}
+improxSmartInvoker.sh FILE_PATH
+{code}
+
+Arguments:
+
+* @FILE_PATH@ - The file path which you want to invoke in an appropriate way
+
+Environment Variables:
+
+* @IMPROX_PORT@ (optional) - The port number which is used for connection between client and server (default: @8096@)

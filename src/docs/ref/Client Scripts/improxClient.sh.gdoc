@@ -1,0 +1,28 @@
+h1. improxClient.sh
+
+h2. Purpose
+
+The @improxClient.sh@ script invokes a specified command on the interactive mode proxy server via TCP port.
+
+h2. Examples
+
+{code}
+improxClient.sh help
+improxClient.sh test-app unit: sample.SampleUnitTests
+{code}
+
+h2. Description
+
+Usage:
+
+{code}
+improxClient.sh COMMAND_LINE
+{code}
+
+Arguments:
+
+* @COMMAND_LINE@ - The command line which you want to execute
+
+Environment Variables:
+
+* @IMPROX_PORT@ (optional) - The port number which is used for connection between client and server (default: @8096@)

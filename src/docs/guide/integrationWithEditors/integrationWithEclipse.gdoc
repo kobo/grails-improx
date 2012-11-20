@@ -1,0 +1,45 @@
+h3. External Tools
+
+# Open _"External Tools Configurations"_ dialog from _"Run > External Tools > External Tools Configurations..."_ menu.
+# Right click on _"Program"_ item at left pane and select _"New"_ item:\
+    !eclipse-external-tools-new.png!
+# Set the fields as follows if shell script is available in your environment:\
+    {table}
+     *Field*           | *Value*                             | *Remarks*
+     Name              | @Grails Improx SmartInvoker \[sh\]@ |
+     Location          | @/path/to/improxSmartInvoker.sh@    |
+     Working Directory | @${container_loc}$@                 |
+     Arguments         | @${resource_loc}$@                  |
+    {table}\
+    !eclipse-external-tools-edit-sh.png!\
+    Else:\
+    {table}
+     *Field*           | *Value*                                                | *Remarks*
+     Name              | @Grails Improx SmartInvoker \[Groovy\]@                |
+     Location          | @/path/to/groovyclient@                                | You can use normal @groovy@ command, but it needs a @JAVA_HOME@ environment variable at _"Environment"_ tab and your patience.
+     Working Directory | @${container_loc}$@                                    |
+     Arguments         | @/path/to/improxSmartInvoker.groovy ${resource_loc}$@  | using a white space as delimiter
+    {table}\
+    !eclipse-external-tools-edit-groovy.png!
+# Click _"OK"_ button to save.
+
+
+h3. Try to run
+
+# Open a test class in the editor.
+# Open _"External Tools Configurations"_ dialog from _"Run > External Tools > External Tools Configurations..."_ menu.
+# Select _"Grails Improx SmartInvoker (which you want)"_ item at left pane and click _"Run"_ button.
+
+
+
+# Improx plugin run only the active test file and output the result to _"Console"_ view in real time:\
+    !eclipse-run.png!
+
+{note}
+In case of using GroovyServ, you should run @groovyserver@ command at once in advance.
+{note}
+
+{note}
+After second time, you can easily run the external tool from the submenu of _"Run > External Tools"_.
+{note}
+

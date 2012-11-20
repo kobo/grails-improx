@@ -33,7 +33,7 @@ class InteractiveModeProxyServer {
 
     synchronized void start() {
         if (serverSocket) {
-            System.err.println("Interactive-mode proxy server is already running on $port port.")
+            System.err.println("Interactive mode proxy server is already running on $port port.")
             return
         }
         try {
@@ -44,14 +44,14 @@ class InteractiveModeProxyServer {
             System.err.println("$port port is already in use by another process.")
         }
         catch (Throwable e) {
-            System.err.println("Failed to invoke interactive-mode proxy server on $port port.")
+            System.err.println("Failed to invoke interactive mode proxy server on $port port.")
             e.printStackTrace()
         }
     }
 
     synchronized void stop() {
         if (!serverSocket) {
-            System.err.println "Interactive-mode proxy server hasn't started yet."
+            System.err.println "Interactive mode proxy server hasn't started yet."
             return
         }
         serverSocket.close() // to cause SocketException intentionally
@@ -63,7 +63,7 @@ class InteractiveModeProxyServer {
         Thread.start {
             handleRequest(serverSocket)
         }
-        println "Interactive-mode proxy server has started on $port port."
+        println "Interactive mode proxy server has started on $port port."
         return serverSocket
     }
 
@@ -79,14 +79,14 @@ class InteractiveModeProxyServer {
                 e.printStackTrace()
             }
         } finally {
-            println "Interactive-mode proxy server stopped."
+            println "Interactive mode proxy server stopped."
         }
     }
 
     private static void executeCommand(Socket socket) {
         def command = retrieveCommand(socket)
 
-        // the before/after 'flush' need to control a line separator rightly on interactive-mode console.
+        // the before/after 'flush' need to control a line separator rightly on interactive mode console.
         GrailsConsole.instance.flush()
         try {
             println "${command ? "'$command'" : "<empty>"} (Received from port ${socket.port})"
@@ -113,8 +113,9 @@ class InteractiveModeProxyServer {
 
         // Support for http client
         if (rawCommand ==~ 'GET /(.*) HTTP/[0-9.]+') {
-            def commandFromUrl = URLDecoder.decode(Matcher.lastMatcher.group(1))
-            if (commandFromUrl ==~ 'favicon.*') {
+            def commandFromUrl = Matcher.lastMatcher.group(1)
+
+            if (commandFromUrl ==~ /favicon\..*/) {
                 return null // to ignore without error
             }
             return commandFromUrl

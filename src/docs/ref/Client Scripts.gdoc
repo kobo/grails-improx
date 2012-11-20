@@ -1,0 +1,10 @@
+h1. Client Scripts Usage
+
+This plugin provides the following client scripts:
+
+* Groovy Script
+** [improxClient.groovy|clientScripts]
+** [improxSmartInvoker.groovy|clientScripts]
+* Shell Script (bash)
+** [improxClient.sh|clientScripts]
+** [improxSmartInvoker.sh|clientScripts]

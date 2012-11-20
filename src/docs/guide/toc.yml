@@ -1,0 +1,23 @@
+introduction:
+    title: Introduction
+    interactiveMode: Interactive Mode is awesome! But...
+    whatCanIDo: What can I do with Improx Plugin?
+    groovyserv: Relationship with GroovyServ
+gettingStarted:
+    title: Getting Started
+    installClientScripts: Install Client Scripts into your environment
+    startServer: Start Server
+    executeCommand: Execute Command from Client
+    smartInvoker: Smart Invoker
+integrationWithEditors:
+    title: Integration with Editors and IDEs
+    integrationWithIdea: IntelliJ IDEA
+    integrationWithEclipse: Eclipse (STS/GGTS)
+    integrationWithSublimeText2: Sublime Text 2
+    integrationWithVim: Vim + QuickRun
+advancedTopics:
+    title: Advanced Topics
+    protocol:
+        title: Communication Protocol
+        standardProtocol: Standard Protocol
+        httpProtocol: HTTP Protocol

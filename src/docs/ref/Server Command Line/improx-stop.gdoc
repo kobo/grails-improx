@@ -1,0 +1,23 @@
+h1. improx-stop
+
+h2. Purpose
+
+The @improx-stop@ command stops the interactive mode proxy server which is running.
+
+h2. Examples
+
+{code}
+grails> improx-stop
+{code}
+
+h2. Description
+
+You must execute this command on the interactive mode where the [improx-start|serverCommandLine] run.
+
+{hidden}
+Usage:
+{hidden}
+
+{code}
+grails> improx-stop
+{code}

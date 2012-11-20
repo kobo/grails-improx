@@ -1,0 +1,20 @@
+Do you know *GroovyServ*?
+It accelerates a feedback cycle for development of *Groovy scripts*.
+
+{quote}
+GroovyServ makes Groovy’s startup time much faster, by pre-invoking Groovy as a server.
+
+In software development with script languages, it’s very important that repeat velocity of “try-and-run” is fast enough. It is too long to wait for start-up of Groovy even for 1 second. GroovyServ reduces startup time of the JVM and Groovy significantly. It’s of course dependent on environments, but in most case, it is 10 to 20 times faster than regular Groovy.
+
+[GroovyServ on GitHub|http://kobo.github.com/groovyserv/]
+{quote}
+
+The *improx plugin* code-named *GrailsServ*
+because it accelerates a feedback cycle for development of *Grails application*.
+But the name of "GrailsServ" isn't good because Grails is essentially "server" and it might lead confusion and misunderstanding.
+So I've given it a more explicit name which shows the architecture of the plugin
+Yes, this plugin works as just only a proxy of interactive mode.
+
+GroovyServ can give you much advantages when you use the plugin because the start-up time of the groovy client scripts of the plugin will be much faster.
+
+See also: _GroovyServ on GitHub_: [http://kobo.github.com/groovyserv/|http://kobo.github.com/groovyserv/]

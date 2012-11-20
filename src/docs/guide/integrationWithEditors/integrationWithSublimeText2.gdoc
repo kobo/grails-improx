@@ -1,0 +1,43 @@
+h3. Build System
+
+# Select _"Tools > Build System > New Build System..."_ menu to open new file.
+# Edit as follows and save the file as @Groovy.sublime-build@ (in @Packages/User@ directory as default).
+
+If shell script is available in your environment:
+
+{code}
+{
+    "cmd": [
+        "/path/to/improxSmartInvoker.sh",
+        "$file"
+    ],
+    "file_regex": "\\((.*?):([0-9]*)\\)",
+    "selector": "source.groovy"
+}
+{code}
+
+Else:
+
+{code}
+{
+    "cmd": [
+        "/path/to/groovyclient", // OR /path/to/groovy
+        "/path/to/improxSmartInvoker.groovy",
+        "$file"
+    ],
+    "file_regex": "\\((.*?):([0-9]*)\\)",
+    "selector": "source.groovy"
+}
+{code}
+
+
+h3. Try to run
+
+# Open a test class in the editor.
+# Select _"Tools > Build"_ menu (or push a shortcut key, like @super+b@)
+# Improx plugin run only the active test file and output the result to Bulid Results pane in real time:\
+    !st2-run.png!
+
+{note}
+In case of using GroovyServ, you should run @groovyserver@ command at once in advance.
+{note}

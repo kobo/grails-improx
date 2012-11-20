@@ -1,0 +1,20 @@
+Execute the following command:
+
+{code}
+grails improx-install-resources
+{code}
+
+The @improx-resources@ directory including client scripts is expanded.
+
+{code}
+improx-resources/
+ └── scripts
+      ├── improxClient.groovy
+      ├── improxClient.sh
+      ├── improxSmartInvoker.groovy
+      └── improxSmartInvoker.sh
+{code}
+
+You should move the directory wherever you want, for example @~/.grails/improx@ or @~/bin@.
+If you deploy it to an appropriate path, you don't have to install the scripts whenever you use it on new project.
+So I recommend that at least it's not under the application project directory.

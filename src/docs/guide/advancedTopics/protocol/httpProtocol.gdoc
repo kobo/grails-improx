@@ -1,0 +1,42 @@
+The improx sever also supports @GET@ method of @HTTP@ protocol.
+
+{code}
+GET /COMMAND HTTP/1.0
+{code}
+
+{code}
+GET /COMMAND HTTP/1.1
+{code}
+
+* @COMMAND@ - a command line which is encoded by URL encoding.
+
+Examples:
+
+{code}
+GET /help HTTP/1.1
+{code}
+
+{code}
+GET /test-app%20unit:%20sample.SampleUnitTests HTTP/1.1
+{code}
+
+So you can use any http clients and any web browsers which already exist,
+for example @curl@, @wget@, @Chrome@, @Firefox@ and even @Internet Explorer@.
+
+{code}
+curl http://localhost:8096/help
+curl http://localhost:8096/test-app%20unit:%20sample.SampleUnitTest
+{code}
+
+{note}
+You might need a @--noproxy '*'@ option if you've set environment variables for http proxy.
+{note}
+
+Web browser often requests for favicon:
+
+{code}
+GET /favicon.ico HTTP/1.1
+{code}
+
+So, in case of the command which starts with "@favicon.@",
+improx server returns a _"Command not found"_ error message instead of causing an actual error.

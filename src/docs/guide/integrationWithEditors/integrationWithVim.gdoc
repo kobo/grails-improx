@@ -1,0 +1,31 @@
+h3. quickrun.vim
+
+# Install [quickrun.vim|http://www.vim.org/scripts/script.php?script_id=3146] plugin if you hasn't done so.\
+    (cf. [Invoking Groovy Script Directly on Vim using quickrun.vim and GroovyServ|http://nobeans-en.blogspot.jp/2011/10/invoking-groovy-script-directly-on-vim.html])
+# Add the following lines into your @.vimrc@ and save.
+
+If shell script is available in your environment:
+
+{code}
+let g:quickrun_config = {}
+let g:quickrun_config.groovy = {'command' : '/path/to/improxSmartInvoker.sh', 'cmdopt': ''}
+{code}
+
+Else:
+
+{code}
+let g:quickrun_config = {}
+let g:quickrun_config.groovy = {'command' : '/path/to/groovyclient', 'cmdopt': '/path/to/improxSmartInvoker.groovy'}
+{code}
+
+
+h3. Try to run
+
+# Open a test class in the editor.
+# Execute ex command @:QuickRun@ (or type @<Leader>@ @r@.)
+# Improx plugin run only the active test file and output the result to a buffer after it completely finishes:\
+    !vim-run.png!
+
+{note}
+In case of using GroovyServ, you should run @groovyserver@ command at once in advance.
+{note}

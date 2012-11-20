@@ -32,12 +32,12 @@ die() {
 
 call_improx() {
     local command="$*"
-    echo "Executing '${command}' via interactive-mode proxy..."
+    echo "Executing '${command}' via interactive mode proxy..."
     echo "$command" | nc localhost $IMPROX_PORT
     [ $? -eq 0 ] || die "\
 Failed to connect to server via port $IMPROX_PORT
   Before connecting, install 'improx' plugin into your application, and
-  run the 'improx-start' command on interactive-mode of the application."
+  run the 'improx-start' command on interactive mode of the application."
 }
 
 usage() {

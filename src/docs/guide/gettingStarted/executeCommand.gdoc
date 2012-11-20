@@ -1,0 +1,65 @@
+h3. via HTTP
+
+I don't know what kind of environment you have.
+So at first, I introduce the most general way to execute a command as client, using *HTTP protocol*.
+[Improx plugin also supports for HTTP protocol|guide:protocol], so you can easily execute a command using it.
+
+When you open the following URL on web browser:
+
+{code}
+http://localhost:8096/help
+{code}
+
+The result will be shown as the response:
+
+!browser-run-help.png!
+
+And a "received" message will be also shown on the console on which @improx-start@ has run:
+
+!terminal-received.png!
+
+
+You can execute any command as follows:
+
+{code}
+http://localhost:8096/list-plugins
+http://localhost:8096/test-app%20unit:%20sample.SampleUnitTests
+{code}
+
+{note}
+You have to make a command line encode by URL encoding when invoking via HTTP.
+{note}
+
+h3. Shell Script
+
+If shell script is available in your environment, you can use [improxClient.sh|clientScripts].
+
+{code}
+improxClient.sh help
+improxClient.sh test-app unit: sample.SampleUnitTests
+{code}
+
+h3. Groovy Script
+
+If there is @groovy@ command in your environment, you can use [improxClient.groovy|clientScripts].
+
+{code}
+groovy improxClient.groovy help
+groovy improxClient.groovy test-app unit: sample.SampleUnitTests
+{code}
+
+The @groovyclient@ of GroovyServ is strongly recommended to execute Groovy script.
+If you've installed GroovyServ, you can do the above with @groovyclient@, as follows:
+
+{code}
+groovyclient improxClient.groovy help
+groovyclient improxClient.groovy tes-app unit: sample.SampleUnitTests
+{code}
+
+{note}
+It needs a @groovyserver@ process to run @groovyclient@.
+The first time @groovyclient@ runs, a @groovyserver@ automatically starts up.
+It takes a few extra seconds.
+Don't get angry.
+You can much faster run a script after second time.
+{note}

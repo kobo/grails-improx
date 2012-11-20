@@ -1,0 +1,33 @@
+h1. improx-install-resources
+
+h2. Purpose
+
+The @improx-install-resources@ command installs @improx-resources@ directory which has some client scripts into your application project.
+
+h2. Examples
+
+{code}
+grails> improx-install-resources
+{code}
+
+h2. Description
+
+The @improx-resources@ directory including client scripts is expanded into the root directory of the application.
+
+{code}
+improx-resources/
+ └── scripts
+      ├── improxClient.groovy
+      ├── improxClient.sh
+      ├── improxSmartInvoker.groovy
+      └── improxSmartInvoker.sh
+{code}
+
+After the installation, you should move the @improx-resources@ directory to a different path unrelated with the application
+because the resource can be shared by some projects which are using this plugin on your computer.
+
+Usage:
+
+{code}
+grails> improx-install-resources
+{code}

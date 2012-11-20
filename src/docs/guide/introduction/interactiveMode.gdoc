@@ -1,0 +1,10 @@
+Are you using the *interactive mode*?
+It's the one of the greatest features of Grails and the fastest way to execute a Grails command.
+
+IDEs, like as IntelliJ IDEA, are very convenient for code formatting, complementation, jumping to a related class, and so on.
+But, about an execution of a Grails command, especially "test-app", it's still so slow that you tend to miss a rhythm of development.
+Certainly you can use interactive mode on a console to execute a command faster and it's very very useful actually,
+but you can't use the interactive mode from IDEs or editors, unfortunately.
+So you have to frequently switch windows between a interactive mode console and an IDE/editor, while in development.
+
+This plugin provides the way of using interactive mode from other process, including IDEs and editors, via TCP.

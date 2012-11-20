@@ -1,0 +1,7 @@
+h1. Server Command Line Usage
+
+This plugin provides the following server commands:
+
+* [improx-install-resources|serverCommandLine]
+* [improx-start|serverCommandLine]
+* [improx-stop|serverCommandLine]

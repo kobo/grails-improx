@@ -1,0 +1,42 @@
+h1. improx-start
+
+h2. Purpose
+
+The @improx-start@ command starts an interactive mode proxy server.
+
+h2. Examples
+
+{code}
+grails> improx-start
+grails> -Dimprox.port=8888 improx-start
+{code}
+
+h2. Description
+
+You must execute this command on interactive mode.
+
+{warning}
+It doesn't support not on interactive mode.
+{warning}
+
+When you send a command from client to the server, a message is printed on the interactive mode.
+
+{code}
+grails> improx-start
+interactive mode proxy server has started on 8096 port.
+grails> 'doc' (Received from port 53004)
+grails> 'help' (Received from port 53012)
+grails> 'test-app unit: sample.SampleUnitTests' (Received from port 53013)
+{code}
+
+The interactive mode can be use for direct typing other commands.
+
+Usage:
+
+{code}
+grails> [-Dimprox.port=PORT] improx-start
+{code}
+
+System Properties:
+
+* @improx.port@ (optional) - The port number which is used for connection between client and server (default: @8096@)

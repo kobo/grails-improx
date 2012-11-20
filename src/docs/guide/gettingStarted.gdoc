@@ -1,0 +1,6 @@
+This plugin's architecture is very simple.
+When you execute the grails script of @improx-start@ on an interactive mode which run up in advance,
+it opens and listens a port (default @8096@).
+Then, it executes a command on the interactive mode when receiving from a client.
+
+It uses [a simple protocol on TCP|guide:protocol], so you can access by variety clients and even make your own new client.

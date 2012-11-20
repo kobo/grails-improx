@@ -1,0 +1,28 @@
+h1. improxClient.groovy
+
+h2. Purpose
+
+The @improxClient.groovy@ script invokes a specified command on the interactive mode proxy server via TCP port.
+
+h2. Examples
+
+{code}
+groovy improxClient.groovy help
+groovy improxClient.groovy test-app unit: sample.SampleUnitTests
+{code}
+
+h2. Description
+
+Usage:
+
+{code}
+groovy [-Dimprox.port=PORT] improxClient.groovy COMMAND_LINE
+{code}
+
+Arguments:
+
+* @COMMAND_LINE@ - The command line which you want to execute
+
+System properties:
+
+* @improx.port@ (optional) - The port number which is used for connection between client and server (default: @8096@)
