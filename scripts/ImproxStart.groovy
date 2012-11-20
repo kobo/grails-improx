@@ -9,7 +9,7 @@ target(main: "Start interactive-mode proxy server") {
         System.err.println "You should run this scirpt on interactive-mode."
         return
     }
-    def server = classLoader.loadClass("org.jggug.kobo.grails.plugin.improx.InteractiveModeProxyServer", true)
+    def server = classLoader.loadClass("org.jggug.kobo.improx.InteractiveModeProxyServer", true)
     server.instance.start()
 }
 

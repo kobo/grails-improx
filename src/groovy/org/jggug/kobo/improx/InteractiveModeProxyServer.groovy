@@ -1,4 +1,4 @@
-package org.jggug.kobo.grails.plugin.improx
+package org.jggug.kobo.improx
 
 import grails.build.logging.GrailsConsole
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
@@ -13,7 +13,6 @@ class InteractiveModeProxyServer {
 
     private ServerSocket serverSocket
     private int port
-
 
     synchronized void start() {
         port = resolvePort()

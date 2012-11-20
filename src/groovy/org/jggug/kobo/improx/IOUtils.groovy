@@ -1,4 +1,4 @@
-package org.jggug.kobo.grails.plugin.improx
+package org.jggug.kobo.improx
 
 import grails.build.logging.GrailsConsole
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
