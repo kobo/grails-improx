@@ -20,7 +20,7 @@ target(main: "Start interactive-mode proxy server") {
     depends "compile"
 
     if (!InteractiveMode.active) {
-        System.err.println "You should run this scirpt on interactive-mode."
+        event "StatusError", "You should run this scirpt on interactive-mode."
         return
     }
     def server = classLoader.loadClass("org.jggug.kobo.improx.InteractiveModeProxyServer", true)
