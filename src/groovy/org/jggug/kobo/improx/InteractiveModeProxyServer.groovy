@@ -2,6 +2,7 @@ package org.jggug.kobo.improx
 
 import grails.build.logging.GrailsConsole
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
+import java.util.regex.Matcher
 
 /**
  * Listen a port and execute a command specified by a client.
@@ -68,20 +69,20 @@ class InteractiveModeProxyServer {
 
     private static void executeCommand(Socket socket) {
         def command = retrieveCommand(socket)
-        if (!command) {
-            System.err.println("Command not found.")
-            return
-        }
 
         // the before/after 'flush' need to control a line separator rightly on interactive-mode console.
         GrailsConsole.instance.flush()
-        println "'${command}' (Received from port ${socket.port})"
         try {
+            println "${command ? "'$command'" : "<empty>"} (Received from port ${socket.port})"
             IOUtils.withSocketOutputStreamAsOutAndErr(socket) {
                 try {
+                    if (!command) {
+                        System.err.println("ERROR: Command not found.")
+                        return
+                    }
                     InteractiveMode.current?.parseAndExecute(command)
                 } catch (e) {
-                    System.err.println("Failed to execute command: ${command}")
+                    System.err.println("ERROR: Failed to execute command: ${command}")
                     e.printStackTrace()
                 }
             }
@@ -92,7 +93,18 @@ class InteractiveModeProxyServer {
     }
 
     private static String retrieveCommand(Socket socket) {
-        return IOUtils.readLine(socket.inputStream)?.trim()
+        def rawCommand = IOUtils.readLine(socket.inputStream)?.trim()
+
+        // Support for http client
+        if (rawCommand ==~ 'GET /(.*) HTTP/[0-9.]+') {
+            def commandFromUrl = URLDecoder.decode(Matcher.lastMatcher.group(1))
+            if (commandFromUrl ==~ 'favicon.*') {
+                return null // to ignore without error
+            }
+            return commandFromUrl
+        }
+
+        return rawCommand
     }
 
     private static int resolvePort() {
