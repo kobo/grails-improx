@@ -67,22 +67,22 @@ check_file() {
 
 resolve_class_name() {
     local path="$1"
-    echo $path | \
-        sed -E 's/.*test\/(unit|integration|functional)\///' | \
-        sed -E 's/.groovy$//' | \
-        sed -e 's|/|.|g'
+    echo $path \
+        | sed -E 's/.*test\/(unit|integration|functional)\///' \
+        | sed -E 's/.groovy$//' \
+        | sed -e 's|/|.|g'
 }
 
 grails_base_dir() {
     local path="$1"
-    echo $path | \
-        sed -E 's/\/test\/(unit|integration|functional)\/.*$//'
+    echo $path \
+        | sed -E 's!/test/(unit|integration|functional)/.*$!!'
 }
 
 test_type() {
     local path="$1"
-    echo $path | \
-        sed -E 's/^.*test\/(unit|integration|functional)\/.*$/\1/'
+    echo $path \
+        | sed -E 's!^.*test/(unit|integration|functional)/.*$!\1!'
 }
 
 is_grails_test() {
