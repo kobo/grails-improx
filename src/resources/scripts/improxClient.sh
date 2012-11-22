@@ -13,7 +13,7 @@
 # Config
 #
 
-DEFAULT_PORT=8081
+IMPROX_PORT=${IMPROX_PORT:=8081}
 
 #---------------------------------------
 # Definition
@@ -31,13 +31,11 @@ die() {
 }
 
 call_improx() {
-    local port="$1"
-    shift
     local command="$*"
     echo "Executing '${command}' via interactive-mode proxy..."
-    echo "$command" | nc localhost $port
+    echo "$command" | nc localhost $IMPROX_PORT
     [ $? -eq 0 ] || die "\
-Failed to connect to server via port $port.
+Failed to connect to server via port $IMPROX_PORT
   Before connecting, install 'improx' plugin into your application, and
   run the 'improx-start' command on interactive-mode of the application."
 }
@@ -59,6 +57,5 @@ if [ $# -eq 0 ]; then
     exit 1
 fi
 
-port=${IMPROX_PORT:=$DEFAULT_PORT}
-call_improx $port $*
+call_improx $*
 

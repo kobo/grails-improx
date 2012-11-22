@@ -25,7 +25,7 @@
 # Config
 #
 
-DEFAULT_PORT=8081
+IMPROX_PORT=${IMPROX_PORT:=8081}
 
 # This script expects the commands will find in PATH environment variable.
 # If you don't want to use PATH environment variable, change the following lines.
@@ -49,13 +49,11 @@ die() {
 }
 
 call_improx() {
-    local port="$1"
-    shift
     local command="$*"
     echo "Executing '${command}' via interactive-mode proxy..."
-    echo "$command" | nc localhost $port
+    echo "$command" | nc localhost $IMPROX_PORT
     [ $? -eq 0 ] || die "\
-Failed to connect to server via port $port.
+Failed to connect to server via port $IMPROX_PORT
   Before connecting, install 'improx' plugin into your application, and
   run the 'improx-start' command on interactive-mode of the application."
 }
@@ -133,8 +131,7 @@ if is_grails_test $path; then
         work_dir=`grails_base_dir $path`
         (cd $work_dir; exec_command $GRAILS_BIN test-app ${test_type}: $class_name)
     else
-        port=${IMPROX_PORT:=$DEFAULT_PORT}
-        call_improx $port test-app ${test_type}: $class_name
+        call_improx test-app ${test_type}: $class_name
     fi
 
 # Try to invoke as Groovy script
