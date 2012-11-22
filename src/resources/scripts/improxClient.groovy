@@ -1,10 +1,11 @@
 //
-// usage: groovy improx-client.groovy <COMMAND_LINE>
-//        groovyclient improx-client.groovy <COMMAND_LINE>  (RECOMMENDED)
+// Usage:
+//     groovy improxClient.groovy <COMMAND_LINE>
+//     groovyclient improxClient.groovy <COMMAND_LINE>
 //
-//  e.g.
-//    grooovy improx-client.groovy help
-//    grooovy improx-client.groovy test-app unit: TheDomainTest
+// Examples:
+//     groovy improxClient.groovy help
+//     groovy improxClient.groovy test-app unit: sample.SampleUnitTests
 //
 
 //---------------------------------------

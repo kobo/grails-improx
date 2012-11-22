@@ -1,12 +1,18 @@
 //
-// usage: groovy improx-smart-invoker.groovy <TARGET_FILE_PATH>
-//        groovyclient improx-smart-invoker.groovy <TARGET_FILE_PATH>  (RECOMMENDED)
+// Usage:
+//     groovy improxSmartInvoker.groovy <TARGET_FILE_PATH>
+//     groovyclient improxSmartInvoker.groovy <TARGET_FILE_PATH>
 //
 // This script try to invoke TARGET_FILE_PATH by the following invokers.
 //
-// [grails-interactive-mode-proxy]
-//    If a target *.groovy file under a test directory of a Grails' project,
-//    it's executed by grails's test-app with appropriate test type via interactive-mode proxy.
+// [grails-improx plugin]
+//    If the target is a .groovy file under either a test/unit or a test/integration directory
+//    of a Grails project, it's executed by grails's test-app with appropriate test type via
+//    interactive-mode proxy.
+//
+// [Grails]
+//    If the target is a .groovy file under a test/functional directory of a Grails project,
+//    it's executed by grails's test-app with appropriate test type on a new Grails process.
 //
 // [GroovyServ]
 //    If GroovyServ is installed, a target *.groovy is executed by groovyclient of GroovyServ.
