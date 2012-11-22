@@ -102,6 +102,7 @@ exists_in_path() {
 exec_command() {
     local command="$*"
     echo "Executing '${command}'..."
+    $command
 }
 
 usage() {
