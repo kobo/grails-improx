@@ -4,7 +4,9 @@ class ImproxGrailsPlugin {
     def grailsVersion = "2.1 > *"
     def dependsOn = [:]
     def pluginExcludes = [
-        "grails-app/views/error.gsp"
+        "grails-app/views/error.gsp",
+        "grails-app/conf/codenarc.groovy",
+        "src/docs/**",
     ]
     def title = "Interactive-mode Proxy Plugin"
     def author = "Yasuharu NAKANO"
