@@ -140,7 +140,7 @@ class ProcessUtil {
 
 class InteractiveModeProxyClient {
 
-    private static final int DEFAULT_PORT = 8081
+    private static final int DEFAULT_PORT = 8096
     private Socket socket
 
     def invoke(String command) {

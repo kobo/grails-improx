@@ -13,7 +13,7 @@ examples
     grails -Dimprox.port=9999 improx-start
 
 optional argument default values
-    PORT = 8081
+    PORT = 8096
 """
 
 target(main: "Start interactive-mode proxy server") {

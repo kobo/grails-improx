@@ -10,7 +10,7 @@ import java.util.regex.Matcher
 @Singleton
 class InteractiveModeProxyServer {
 
-    private static final int DEFAULT_PORT = 8081
+    private static final int DEFAULT_PORT = 8096
 
     private ServerSocket serverSocket
     private int port

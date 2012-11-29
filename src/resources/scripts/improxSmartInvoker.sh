@@ -25,7 +25,7 @@
 # Config
 #
 
-IMPROX_PORT=${IMPROX_PORT:=8081}
+IMPROX_PORT=${IMPROX_PORT:=8096}
 
 # This script expects the commands will find in PATH environment variable.
 # If you don't want to use PATH environment variable, change the following lines.

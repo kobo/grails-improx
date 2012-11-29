@@ -13,7 +13,7 @@
 # Config
 #
 
-IMPROX_PORT=${IMPROX_PORT:=8081}
+IMPROX_PORT=${IMPROX_PORT:=8096}
 
 #---------------------------------------
 # Definition
