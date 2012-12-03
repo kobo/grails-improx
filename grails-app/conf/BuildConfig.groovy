@@ -16,7 +16,7 @@ grails.project.dependency.resolution = {
     }
 
     plugins {
-        build(":release:2.0.3") {
+        build(":release:2.0.4") {
             export = false
         }
         test(":codenarc:0.17",
