@@ -6,3 +6,4 @@ target
 *.idea
 /improx-resources
 web-app
+/docs
