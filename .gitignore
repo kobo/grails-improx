@@ -1,2 +1,5 @@
 /.gradle
 /target
+/*.zip
+/web-app
+/plugin.xml
