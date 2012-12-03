@@ -13,8 +13,10 @@ class ImproxGrailsPlugin {
     def authorEmail = "ynak@jggug.org"
     def license = "APACHE"
     def description = '''\
-This plugin can make a CUI script invoke any grails command by communication grails process invoked as interactive-mode in advance.
+This plugin provides the way of using interactive mode from other process via TCP.
 '''
-    def documentation = "http://grails.org/plugin/improx"
+    def documentation = "http://kobo.github.com/grails-improx/"
+    def scm = [url: "https://github.com/kobo/grails-improx"]
+    def issueManagement = [system: "GitHub Issues", url: "https://github.com/kobo/grails-improx/issues"]
 
 }
