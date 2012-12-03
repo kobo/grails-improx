@@ -19,6 +19,6 @@ log4j = {
 	      'net.sf.ehcache.hibernate'
 }
 
-grails.doc.title = "Interactive Mode Proxy Plugin (Improx)"
+grails.doc.title = "Improx - Interactive Mode Proxy"
 grails.doc.css = new File("src/docs/css")
 grails.doc.images = new File("src/docs/images")
