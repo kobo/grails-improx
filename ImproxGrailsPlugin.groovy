@@ -18,6 +18,7 @@ class ImproxGrailsPlugin {
     def title = "Improx - Interactive Mode Proxy"
     def author = "Yasuharu NAKANO"
     def authorEmail = "ynak@jggug.org"
+    def organization = [ name: "Japan Grails/Groovy User Group", url: "http://www.jggug.org/" ]
     def license = "APACHE"
     def description = 'Provides the way of using interactive mode from other process via TCP.'
     def documentation = "http://kobo.github.com/grails-improx/"
