@@ -8,7 +8,7 @@ class ImproxGrailsPlugin {
         "grails-app/conf/codenarc.groovy",
         "src/docs/**",
     ]
-    def title = "Interactive-mode Proxy Plugin"
+    def title = "Improx - Interactive Mode Proxy"
     def author = "Yasuharu NAKANO"
     def authorEmail = "ynak@jggug.org"
     def license = "APACHE"
