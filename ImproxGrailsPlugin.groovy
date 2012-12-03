@@ -16,7 +16,8 @@ class ImproxGrailsPlugin {
     def version = "0.1"
     def grailsVersion = "2.0 > *"
     def pluginExcludes = [
-        "src/docs/**"
+        "src/docs/**",
+        "scripts/PublishDocs.groovy",
     ]
     def title = "Improx - Interactive Mode Proxy"
     def author = "Yasuharu NAKANO"
