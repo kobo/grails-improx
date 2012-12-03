@@ -1,0 +1,174 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>3.4 Vim + QuickRun 0.1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/gettingStarted.html"><strong>2</strong><span>Getting Started</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/integrationWithEditors.html"><strong>3</strong><span>Integration with Editors and IDEs</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/advancedTopics.html"><strong>4</strong><span>Advanced Topics</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>This plugin provides the way of using interactive mode from other process via TCP.
+</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../../guide/gettingStarted.html">&lt;&lt; <strong>2</strong><span>Getting Started</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../../guide/advancedTopics.html"><strong>4</strong><span>Advanced Topics</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>3.4 Vim + QuickRun - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Yasuharu NAKANO</p>
+
+                    <p><strong>Version:</strong> 0.1</p>
+
+                    
+                </div>
+
+                
+
+                
+
+<h2 id="integrationWithVim">3.4 Vim + QuickRun</h2>
+<h3>quickrun.vim</h3>
+<ol>
+<li>Install <a href="http://www.vim.org/scripts/script.php?script_id=3146" target="blank">quickrun.vim</a> plugin if you hasn't done so.&#10;    (cf. <a href="http://nobeans-en.blogspot.jp/2011/10/invoking-groovy-script-directly-on-vim.html" target="blank">Invoking Groovy Script Directly on Vim using quickrun.vim and GroovyServ</a>)</li>
+<li>Add the following lines into your <code>.vimrc</code> and save.</li>
+</ol><p class="paragraph"/>If shell script is available in your environment:<p class="paragraph"/><div class="code"><pre>let g:quickrun_config = &#123;&#125;
+let g:quickrun_config.groovy = &#123;'command' : '/path/to/improxSmartInvoker.sh', 'cmdopt': ''&#125;</pre></div><p class="paragraph"/>Else:<p class="paragraph"/><div class="code"><pre>let g:quickrun_config = &#123;&#125;
+let g:quickrun_config.groovy = &#123;'command' : '/path/to/groovyclient', 'cmdopt': '/path/to/improxSmartInvoker.groovy'&#125;</pre></div><p class="paragraph"/>
+<h3>Try to run</h3>
+<ol>
+<li>Open a test class in the editor.</li>
+<li>Execute ex command <code>:QuickRun</code> (or type <code>&#60;Leader&#62;</code> <code>r</code>.)</li>
+<li>Improx plugin run only the active test file and output the result to a buffer after it completely finishes:&#10;    <img border="0" class="center" src="../img/vim-run.png"></img></li>
+</ol><p class="paragraph"/><blockquote class="note">
+In case of using GroovyServ, you should run <code>groovyserver</code> command at once in advance.
+</blockquote>
+
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../../guide/gettingStarted.html">&lt;&lt; <strong>2</strong><span>Getting Started</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/advancedTopics.html"><strong>4</strong><span>Advanced Topics</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Client Scripts</h1><div class="menu-sub">
+                        
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxClient.groovy.html">improxClient.groovy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxClient.sh.html">improxClient.sh</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxSmartInvoker.groovy.html">improxSmartInvoker.groovy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxSmartInvoker.sh.html">improxSmartInvoker.sh</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Server Command Line</h1><div class="menu-sub">
+                        
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-install-resources.html">improx-install-resources</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-start.html">improx-start</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-stop.html">improx-stop</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>
