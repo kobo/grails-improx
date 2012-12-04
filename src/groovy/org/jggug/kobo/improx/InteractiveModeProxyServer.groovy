@@ -15,8 +15,10 @@
 package org.jggug.kobo.improx
 
 import grails.build.logging.GrailsConsole
-import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
+
 import java.util.regex.Matcher
+
+import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 
 /**
  * Listen a port and execute a command specified by a client.
@@ -124,5 +126,4 @@ class InteractiveModeProxyServer {
     private static int resolvePort() {
         return (System.getProperty("improx.port") ?: DEFAULT_PORT) as int
     }
-
 }
