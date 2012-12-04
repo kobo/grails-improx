@@ -50,12 +50,24 @@ die() {
 
 call_improx() {
     local command="$*"
+    check_port
     echo "Executing '${command}' via interactive mode proxy..."
-    echo "$command" | nc localhost $IMPROX_PORT
-    [ $? -eq 0 ] || die "\
+    exec 5<> /dev/tcp/localhost/$IMPROX_PORT
+    echo "$command" >&5
+    cat <&5
+}
+
+check_port() {
+    # do check only if there is nc command.
+    # there is no nc command on cygwin of windows, but call_improx should be executed.
+    # so nc command is used only for checking whether the port is available.
+    if which nc > /dev/null 2>&1; then
+        nc -z localhost $IMPROX_PORT > /dev/null 2>&1
+        [ $? -eq 0 ] || die "\
 Failed to connect to server via port $IMPROX_PORT
   Before connecting, install 'improx' plugin into your application, and
   run the 'improx-start' command on interactive mode of the application."
+    fi
 }
 
 check_file() {
