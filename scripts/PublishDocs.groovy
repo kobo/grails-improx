@@ -18,7 +18,17 @@ target(main: "Build documentation and copy to gh-pages branch") {
     depends(clean, docs)
 
     executeCommand 'git', ['checkout', 'gh-pages']
-    ant.copy(todir: "${basedir}/docs", overwrite: 'yes') {
+
+    // delete all except index.html
+    ant.delete {
+        fileset dir: "${basedir}" {
+            excludes: ".git/**"
+            excludes: "target/**"
+        }
+    }
+
+    // copy all from docs except index.html
+    ant.copy(todir: "${basedir}") {
         fileset dir: "${projectTargetDir}/docs"
     }
 }
