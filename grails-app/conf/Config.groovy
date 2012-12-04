@@ -22,3 +22,5 @@ log4j = {
 grails.doc.title = "Improx - Interactive Mode Proxy"
 grails.doc.css = new File("src/docs/css")
 grails.doc.images = new File("src/docs/images")
+grails.doc.license = "Apache License 2.0"
+
