@@ -74,7 +74,7 @@ class GrailsInvoker {
     }
 
     private parseParams(File file) {
-        def matcher = (file.absolutePath =~ '^(.*)/test/(unit|integration|functional)/(.*)$')
+        def matcher = (file.canonicalFile.toURI().path =~ '^(.*)/test/(unit|integration|functional)/(.*)$')
         if (matcher.find()) {
             def projectDir = new File(matcher.group(1))
             def testType = matcher.group(2)
