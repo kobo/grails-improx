@@ -36,7 +36,7 @@ call_improx() {
     echo "Executing '${command}' via interactive mode proxy..."
     exec 5<> /dev/tcp/localhost/$IMPROX_PORT
     echo "$command" >&5
-    cat <&5
+    /bin/cat <&5
 }
 
 check_port() {
