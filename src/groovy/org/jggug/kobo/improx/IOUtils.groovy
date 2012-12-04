@@ -15,6 +15,7 @@
 package org.jggug.kobo.improx
 
 import grails.build.logging.GrailsConsole
+
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 import org.codehaus.groovy.grails.cli.logging.GrailsConsoleErrorPrintStream
 import org.codehaus.groovy.grails.cli.logging.GrailsConsolePrintStream
@@ -66,5 +67,4 @@ class IOUtils {
             InteractiveMode.current.scriptRunner.console = originals.grailsConsole
         }
     }
-
 }

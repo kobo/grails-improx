@@ -14,7 +14,7 @@
 
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 
-includeTargets << grailsScript("Compile")
+includeTargets << grailsScript("_GrailsCompile")
 
 USAGE = """
     grails [-Dimprox.port=PORT] improx-start
@@ -30,7 +30,7 @@ optional argument default values
     PORT = 8096
 """
 
-target(main: "Start interactive-mode proxy server") {
+target(improxStart: "Start interactive-mode proxy server") {
     depends "compile"
 
     if (!InteractiveMode.active) {
@@ -41,5 +41,4 @@ target(main: "Start interactive-mode proxy server") {
     server.instance.start()
 }
 
-setDefaultTarget(main)
-
+setDefaultTarget improxStart
