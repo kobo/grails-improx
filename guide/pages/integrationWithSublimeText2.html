@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>3.3 Sublime Text 2 0.1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass() {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs" style="display:none;">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/gettingStarted.html"><strong>2</strong><span>Getting Started</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/integrationWithEditors.html"><strong>3</strong><span>Integration with Editors and IDEs</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/advancedTopics.html"><strong>4</strong><span>Advanced Topics</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>This plugin provides the way of using interactive mode from other process via TCP.
+</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../../guide/gettingStarted.html">&lt;&lt; <strong>2</strong><span>Getting Started</span></a></div>
+                
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                
+                    <div class="toc-item next-right"><a href="../../guide/advancedTopics.html"><strong>4</strong><span>Advanced Topics</span> >></a></div>
+                
+
+
+                <div class="project">
+                    <h1>3.3 Sublime Text 2 - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Yasuharu NAKANO</p>
+
+                    <p><strong>Version:</strong> 0.1</p>
+
+                    
+                </div>
+
+                
+
+                
+
+<h2 id="integrationWithSublimeText2">3.3 Sublime Text 2</h2>
+<h3>Build System</h3>
+<ol>
+<li>Select  <em class="italic">"Tools &#62; Build System &#62; New Build System..."</em>  menu to open new file.</li>
+<li>Edit as follows and save the file as <code>Groovy.sublime-build</code> (in <code>Packages/User</code> directory as default).</li>
+</ol><p class="paragraph"/>If shell script is available in your environment:<p class="paragraph"/><div class="code"><pre>&#123;
+    <span class="java&#45;quote">"cmd"</span>: &#91;
+        <span class="java&#45;quote">"/path/to/improxSmartInvoker.sh"</span>,
+        <span class="java&#45;quote">"$file"</span>
+    &#93;,
+    <span class="java&#45;quote">"file_regex"</span>: "&#92;&#92;((.&#42;?):(&#91;0&#45;9&#93;&#42;)&#92;&#92;)<span class="java&#45;quote">",
+    "</span>selector<span class="java&#45;quote">": "</span>source.groovy"
+&#125;</pre></div><p class="paragraph"/>Else:<p class="paragraph"/><div class="code"><pre>&#123;
+    <span class="java&#45;quote">"cmd"</span>: &#91;
+        <span class="java&#45;quote">"/path/to/groovyclient"</span>, // OR /path/to/groovy
+        <span class="java&#45;quote">"/path/to/improxSmartInvoker.groovy"</span>,
+        <span class="java&#45;quote">"$file"</span>
+    &#93;,
+    <span class="java&#45;quote">"file_regex"</span>: "&#92;&#92;((.&#42;?):(&#91;0&#45;9&#93;&#42;)&#92;&#92;)<span class="java&#45;quote">",
+    "</span>selector<span class="java&#45;quote">": "</span>source.groovy"
+&#125;</pre></div><p class="paragraph"/>
+<h3>Try to run</h3>
+<ol>
+<li>Open a test class in the editor.</li>
+<li>Select  <em class="italic">"Tools &#62; Build"</em>  menu (or push a shortcut key, like <code>super+b</code>)</li>
+<li>Improx plugin run only the active test file and output the result to Bulid Results pane in real time:&#10;    <img border="0" class="center" src="../img/st2-run.png"></img></li>
+</ol><p class="paragraph"/><blockquote class="note">
+In case of using GroovyServ, you should run <code>groovyserver</code> command at once in advance.
+</blockquote>
+
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../../guide/gettingStarted.html">&lt;&lt; <strong>2</strong><span>Getting Started</span></a></div>
+                
+                    <div class="toc-item next-right"><a href="../../guide/advancedTopics.html"><strong>4</strong><span>Advanced Topics</span> >></a></div>
+                
+                <div style="clear:both"></div>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Client Scripts</h1><div class="menu-sub">
+                        
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxClient.groovy.html">improxClient.groovy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxClient.sh.html">improxClient.sh</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxSmartInvoker.groovy.html">improxSmartInvoker.groovy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxSmartInvoker.sh.html">improxSmartInvoker.sh</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Server Command Line</h1><div class="menu-sub">
+                        
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-install-resources.html">improx-install-resources</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-start.html">improx-start</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-stop.html">improx-stop</a>
+                            </div>
+                            
+                            </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+<script type="text/javascript" src="../js/docs.js"></script>
+
+</body>
+</html>

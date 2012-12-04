@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Improx - Interactive Mode Proxy 0.1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <script type="text/javascript">
+function addJsClass(el) {
+    var classes = document.body.className.split(" ");
+    classes.push("js");
+    document.body.className = classes.join(" ");
+}
+    </script>
+</head>
+
+<body class="body" onload="addJsClass();">
+
+<div id="navigation">
+    <ul>
+        <li>
+            <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
+                <a href="../../guide/index.html" class="button">Table of contents</a>
+
+                <div id="nav-summary-childs">
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/gettingStarted.html"><strong>2</strong><span>Getting Started</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/integrationWithEditors.html"><strong>3</strong><span>Integration with Editors and IDEs</span></a>
+                    </div>
+                    
+                    <div class="toc-item" style="margin-left:0"><a href="../../guide/advancedTopics.html"><strong>4</strong><span>Advanced Topics</span></a>
+                    </div>
+                    
+                </div>
+            </div>
+        </li>
+        <li class="separator selected">
+            <a id="ref-button" onclick="localToggle(); return false;" href="#">Quick Reference</a>
+        </li>
+    </ul>
+</div>
+<div id="header">
+    <div class="images clearfix">
+        
+        
+    </div>
+    <p>This plugin provides the way of using interactive mode from other process via TCP.
+</p>
+</div>
+
+
+<table id="colset" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td id="col1">
+            <div id="main" class="reference corner-all">
+
+                <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
+
+                <h1>improxSmartInvoker.sh</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>The <code>improxSmartInvoker.sh</code> script invokes any <code>.groovy</code> file in an appropriate way.<p class="paragraph"/>This script is very useful for invoking from editors or IDEs.
+All you have to do is to register it as  <em class="italic">External Tools</em> .<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/><div class="code"><pre>improxSmartInvoker.sh /path/to/yourApp/test/unit/sample/SampleUnitTests.groovy &#45;&#45;&#91;1&#93;
+improxSmartInvoker.sh /path/to/yourApp/test/integration/sample/SampleIntegTests.groovy &#45;&#45;&#91;2&#93;
+improxSmartInvoker.sh /path/to/yourApp/test/functional/sample/SampleFuncTests.groovy &#45;&#45;&#91;3&#93;
+improxSmartInvoker.sh /path/to/scriptDir/myTribialScript.groovy &#45;&#45;&#91;4&#93;</pre></div>
+<ul class="star">
+<li><code>&#91;1&#93;</code> invokes '<code>test-app unit: sample.SampleUnitTests</code>' on the interactive mode.</li>
+<li><code>&#91;2&#93;</code> invokes '<code>test-app integration: sample.SampleIntegTests</code>' on the interactive mode.</li>
+<li><code>&#91;3&#93;</code> invokes '<code>grails test-app functional: sample.SampleFuncTests</code>' as new standalone Grails process.</li>
+<li><code>&#91;4&#93;</code> invokes '<code>groovy /path/to/scriptDir/myTribialScript.groovy</code>' as a normal Groovy script.&#10;  If you've istalled GroovyServ, the <code>groovyclient</code> is automatically used instead of <code>groovy</code> command.</li>
+</ul><p class="paragraph"/><h2>Description</h2><p class="paragraph"/>Usage:<p class="paragraph"/><div class="code"><pre>improxSmartInvoker.sh FILE_PATH</pre></div><p class="paragraph"/>Arguments:
+<ul class="star">
+<li><code>FILE_PATH</code> - The file path which you want to invoke in an appropriate way</li>
+</ul><p class="paragraph"/>Environment Variables:
+<ul class="star">
+<li><code>IMPROX_PORT</code> (optional) - The port number which is used for connection between client and server (default: <code>8096</code>)</li>
+</ul><p class="paragraph"/>
+            </div>
+        </td>
+        <td id="col2">
+            <div class="local clearfix">
+                <div class="local-title">
+                    <a href="../../guide/index.html" target="mainFrame">Quick Reference</a>
+                    <span class="toggle">(<a href="#" onclick="localToggle(); return false;">hide</a>)</span>
+                </div>
+                <div class="menu">
+                    
+                    <div class="menu-block">
+                        <h1 class="menu-title" onclick="toggleRef(nextElement(this))">Client Scripts</h1>
+                        <div class="menu-sub selected">
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxClient.groovy.html">improxClient.groovy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxClient.sh.html">improxClient.sh</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxSmartInvoker.groovy.html">improxSmartInvoker.groovy</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Client%20Scripts/improxSmartInvoker.sh.html">improxSmartInvoker.sh</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                    <div class="menu-block">
+                        <h1 class="menu-title" onclick="toggleRef(nextElement(this))">Server Command Line</h1>
+                        <div class="menu-sub">
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/Usage.html">Usage</a></div>
+                            
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-install-resources.html">improx-install-resources</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-start.html">improx-start</a>
+                            </div>
+                            
+                            <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-stop.html">improx-stop</a>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+
+<div id="footer">
+    
+    
+</div>
+
+
+<script type="text/javascript" src="../../js/docs.js"></script>
+
+</body>
+</html>
