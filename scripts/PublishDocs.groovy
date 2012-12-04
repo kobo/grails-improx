@@ -14,7 +14,7 @@
 
 includeTargets << grailsScript("_GrailsDocs")
 
-target(main: "Build documentation and copy to gh-pages branch") {
+target(improxPublishDocs: "Build documentation and copy to gh-pages branch") {
     depends(clean, docs)
 
     executeCommand 'git', ['checkout', 'gh-pages']
@@ -30,7 +30,7 @@ target(main: "Build documentation and copy to gh-pages branch") {
     }
 }
 
-setDefaultTarget(main)
+setDefaultTarget improxPublishDocs
 
 def executeCommand(command, arguments = []) {
     println ">> Executing command..."
