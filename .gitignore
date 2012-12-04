@@ -1,10 +1,8 @@
-.project
-.classpath
 .settings
 *.log
 *.zip
 plugin.xml
 target
-*.tld
 *.idea
 /improx-resources
+web-app
