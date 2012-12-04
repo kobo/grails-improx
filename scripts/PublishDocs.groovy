@@ -21,10 +21,7 @@ target(main: "Build documentation and copy to gh-pages branch") {
 
     // delete all except index.html
     ant.delete {
-        fileset dir: "${basedir}" {
-            excludes: ".git/**"
-            excludes: "target/**"
-        }
+        fileset dir: "${basedir}", excludes: "target/**"
     }
 
     // copy all from docs except index.html
