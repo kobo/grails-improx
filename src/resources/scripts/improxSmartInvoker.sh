@@ -51,16 +51,12 @@ die() {
 call_improx() {
     local command="$*"
     echo "Executing '${command}' via interactive mode proxy..."
-
-    # check whether port opens
-    (exec 5<> /dev/tcp/localhost/$IMPROX_PORT) >/dev/null 2>&1 || die "\
+    (
+        exec 5<> /dev/tcp/localhost/$IMPROX_PORT && echo "$command" >&5 && /bin/cat <&5
+    ) 2>/dev/null || die "\
 Failed to connect to server via port $IMPROX_PORT
   Before connecting, install 'improx' plugin into your application, and
   run the 'improx-start' command on interactive mode of the application."
-
-    exec 5<> /dev/tcp/localhost/$IMPROX_PORT
-    echo "$command" >&5
-    /bin/cat <&5
 }
 
 check_file() {
