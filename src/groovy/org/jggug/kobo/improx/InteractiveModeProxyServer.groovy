@@ -113,8 +113,7 @@ class InteractiveModeProxyServer {
 
         // Support for http client
         if (rawCommand ==~ 'GET /(.*) HTTP/[0-9.]+') {
-            def commandFromUrl = Matcher.lastMatcher.group(1)
-
+            def commandFromUrl = URLDecoder.decode(Matcher.lastMatcher.group(1)).trim()
             if (commandFromUrl ==~ /favicon\..*/) {
                 return null // to ignore without error
             }
