@@ -33,12 +33,16 @@ class SimpleGrailsConsole extends GrailsConsole {
         INSTANCE = new SimpleGrailsConsole()
     }
 
-    static SimpleGrailsConsole getInstance(OutputStream outputStream) {
+    static SimpleGrailsConsole getInstance(Socket socket) {
         // Replace an OutputStream in PrintWriter.
         // GrailsConsole has getOut(), so direct assignment to 'out' field
         // causes the error which is violation to a read-only field.
         //instance.out.out = new PrintStream(outputStream)
-        INSTANCE.out.out = new PrintStream(outputStream)
+        INSTANCE.out.out = new PrintStream(socket.outputStream)
+
+        // Replace reader to read the user input from console.
+        INSTANCE.reader.in = socket.inputStream
+
         return INSTANCE
     }
 

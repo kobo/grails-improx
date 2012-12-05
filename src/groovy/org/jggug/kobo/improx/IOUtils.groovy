@@ -44,7 +44,7 @@ class IOUtils {
         ]
         try {
             // this is important to make the stdout output to socket instead of console.
-            GrailsConsole.instance = SimpleGrailsConsole.getInstance(socket.outputStream)
+            GrailsConsole.instance = SimpleGrailsConsole.getInstance(socket)
 
             // GrailsScriptRunner use the cached console instance.
             InteractiveMode.current.scriptRunner.console = GrailsConsole.instance
