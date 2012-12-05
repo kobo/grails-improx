@@ -40,8 +40,8 @@ class SimpleGrailsConsole extends GrailsConsole {
         //instance.out.out = new PrintStream(outputStream)
         INSTANCE.out.out = new PrintStream(socket.outputStream)
 
-        // Replace reader to read the user input from console.
-        INSTANCE.reader.in = socket.inputStream
+        // TODO Replace reader to read the user input from console.
+        //INSTANCE.reader.input = socket.inputStream
 
         return INSTANCE
     }

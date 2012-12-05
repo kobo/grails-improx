@@ -42,6 +42,7 @@ class IOUtils {
             err: System.err,
             grailsConsole: GrailsConsole.instance
         ]
+        System.properties["grails.console.enable.interactive"] = Boolean.FALSE.toString()
         try {
             // this is important to make the stdout output to socket instead of console.
             GrailsConsole.instance = SimpleGrailsConsole.getInstance(socket)
@@ -65,6 +66,7 @@ class IOUtils {
             GrailsConsole.instance = originals.grailsConsole
             InteractiveMode.current.console = originals.grailsConsole
             InteractiveMode.current.scriptRunner.console = originals.grailsConsole
+            System.properties["grails.console.enable.interactive"] = Boolean.TRUE.toString()
         }
     }
 }
