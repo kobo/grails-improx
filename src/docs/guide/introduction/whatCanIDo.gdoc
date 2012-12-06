@@ -1,7 +1,7 @@
 If you install this plugin to your application, you can invoke any Grails commands on an interactive mode,
 which started up in advance on a console, from other processes via a TCP.
 This means that you can quickly run a test which is opened in you favorite editor or IDE.
-If you've appropriately set them up, You'd have only to push a key in order to run it.
+If you've appropriately set them up, you'd have only to push a key in order to run it.
 
 For example, in Sublime Text 2:
 
@@ -10,6 +10,6 @@ For example, in Sublime Text 2:
 *It has taken only 1.9 sec as total time of the build!*
 Though it's certainly a simple unit test, this is the surprising result.
 
-In addition, you can make an original build script, for example, to execute 'doc' command and reload a web browser window automatically.
+In addition, you can easily make an original build script, for example, to execute 'doc' command and reload a web browser window automatically.
 
 In short, *this plugin brings you the more convenience and flexibility for Grails application development.*

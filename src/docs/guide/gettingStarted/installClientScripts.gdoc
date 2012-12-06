@@ -15,6 +15,12 @@ improx-resources/
       └── improxSmartInvoker.sh
 {code}
 
+If you want to use shell script, give an execute permission to the scripts as follows:
+
+{code}
+$ chmod +x improx-resources/scripts/*.sh
+{code}
+
 You should move the directory wherever you want, for example @~/.grails/improx@ or @~/bin@.
 If you deploy it to an appropriate path, you don't have to install the scripts whenever you use it on new project.
 So I recommend that at least it's not under the application project directory.
