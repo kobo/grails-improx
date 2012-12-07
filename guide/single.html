@@ -126,8 +126,8 @@ So you have to frequently switch windows between a interactive mode console and 
 If you install this plugin to your application, you can invoke any Grails commands on an interactive mode,
 which started up in advance on a console, from other processes via a TCP.
 This means that you can quickly run a test which is opened in you favorite editor or IDE.
-If you've appropriately set them up, You'd have only to push a key in order to run it.<p class="paragraph"/>For example, in Sublime Text 2:<p class="paragraph"/>    <img border="0" class="center" src="../img/st2-run.png"></img><p class="paragraph"/><strong class="bold">It has taken only 1.9 sec as total time of the build!</strong>
-Though it's certainly a simple unit test, this is the surprising result.<p class="paragraph"/>In addition, you can make an original build script, for example, to execute 'doc' command and reload a web browser window automatically.<p class="paragraph"/>In short, <strong class="bold">this plugin brings you the more convenience and flexibility for Grails application development.</strong>
+If you've appropriately set them up, you'd have only to push a key in order to run it.<p class="paragraph"/>For example, in Sublime Text 2:<p class="paragraph"/>    <img border="0" class="center" src="../img/st2-run.png"></img><p class="paragraph"/><strong class="bold">It has taken only 1.9 sec as total time of the build!</strong>
+Though it's certainly a simple unit test, this is the surprising result.<p class="paragraph"/>In addition, you can easily make an original build script, for example, to execute 'doc' command and reload a web browser window automatically.<p class="paragraph"/>In short, <strong class="bold">this plugin brings you the more convenience and flexibility for Grails application development.</strong>
 
 
 
@@ -157,7 +157,7 @@ Execute the following command:<p class="paragraph"/><div class="code"><pre>grail
       ├── improxClient.groovy
       ├── improxClient.sh
       ├── improxSmartInvoker.groovy
-      └── improxSmartInvoker.sh</pre></div><p class="paragraph"/>You should move the directory wherever you want, for example <code>~/.grails/improx</code> or <code>~/bin</code>.
+      └── improxSmartInvoker.sh</pre></div><p class="paragraph"/>If you want to use shell script, give an execute permission to the scripts as follows:<p class="paragraph"/><div class="code"><pre>$ chmod +x improx&#45;resources/scripts/&#42;.sh</pre></div><p class="paragraph"/>You should move the directory wherever you want, for example <code>~/.grails/improx</code> or <code>~/bin</code>.
 If you deploy it to an appropriate path, you don't have to install the scripts whenever you use it on new project.
 So I recommend that at least it's not under the application project directory.
 
@@ -405,6 +405,17 @@ improx server returns a  <em class="italic">"Command not found"</em>  error mess
         <div id="footer">
             
             
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-3438563-5']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+
         </div>
 
 
