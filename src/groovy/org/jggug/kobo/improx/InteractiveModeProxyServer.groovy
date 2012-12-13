@@ -13,13 +13,10 @@
  */
 
 package org.jggug.kobo.improx
-
 import grails.build.logging.GrailsConsole
-
-import java.util.regex.Matcher
-
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 
+import java.util.regex.Matcher
 /**
  * Listen a port and execute a command specified by a client.
  */
@@ -33,7 +30,7 @@ class InteractiveModeProxyServer {
 
     synchronized void start() {
         if (serverSocket) {
-            System.err.println("Interactive mode proxy server is already running on $port port.")
+            error("Interactive mode proxy server is already running on $port port.")
             return
         }
         try {
@@ -41,17 +38,17 @@ class InteractiveModeProxyServer {
             serverSocket = startServer(port)
         }
         catch (BindException e) {
-            System.err.println("$port port is already in use by another process.")
+            error("$port port is already in use by another process.")
         }
         catch (Throwable e) {
-            System.err.println("Failed to invoke interactive mode proxy server on $port port.")
+            error("Failed to invoke interactive mode proxy server on $port port.")
             e.printStackTrace()
         }
     }
 
     synchronized void stop() {
         if (!serverSocket) {
-            System.err.println "Interactive mode proxy server hasn't started yet."
+            error "Interactive mode proxy server hasn't started yet."
             return
         }
         serverSocket.close() // to cause SocketException intentionally
@@ -75,9 +72,7 @@ class InteractiveModeProxyServer {
                 executeCommand(socket)
             }
         } catch (SocketException e) {
-            if (!e.message.startsWith("Socket closed")) {
-                e.printStackTrace()
-            }
+            // do nothing because SocketException normally occurs when improx-stop is invoked.
         } finally {
             println "Interactive mode proxy server stopped."
         }
@@ -93,13 +88,12 @@ class InteractiveModeProxyServer {
             IOUtils.withSocketOutputStreamAsOutAndErr(socket) {
                 try {
                     if (!command) {
-                        System.err.println("ERROR: Command not found.")
+                        error("ERROR: Command not found.")
                         return
                     }
                     InteractiveMode.current?.parseAndExecute(command)
                 } catch (e) {
-                    System.err.println("ERROR: Failed to execute command: ${command}")
-                    e.printStackTrace()
+                    error("ERROR: Failed to execute command: ${command}", e)
                 }
             }
         } finally {
@@ -113,7 +107,7 @@ class InteractiveModeProxyServer {
 
         // Support for http client
         if (rawCommand ==~ 'GET /(.*) HTTP/[0-9.]+') {
-            def commandFromUrl = URLDecoder.decode(Matcher.lastMatcher.group(1)).trim()
+            def commandFromUrl = URLDecoder.decode(Matcher.lastMatcher.group(1), "UTF-8").trim()
             if (commandFromUrl ==~ /favicon\..*/) {
                 return null // to ignore without error
             }
@@ -125,5 +119,14 @@ class InteractiveModeProxyServer {
 
     private static int resolvePort() {
         return (System.getProperty("improx.port") ?: DEFAULT_PORT) as int
+    }
+
+    private static void error(String message, Throwable e) {
+        System.err.println(message)
+        e.printStackTrace()
+    }
+
+    private static void error(String message) {
+        System.err.println(message)
     }
 }
