@@ -7,3 +7,5 @@ target
 /improx-resources
 web-app
 /docs
+/build
+/.gradle
