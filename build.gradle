@@ -109,9 +109,13 @@ def withSocket(host, port, closure) {
 }
 
 class ProcessUtil {
-    static execute(List command, File currentDir, Closure procHandler = {}) {
+    static execute(List command, File currentDir, Closure procHandler) {
         println "Executing '${command.join(' ')}' at ${currentDir} ..."
-        doExecute({ command.execute(["JAVA_HOME=${System.env['JAVA_HOME']}"], currentDir) }, procHandler)
+        def env = [
+            "HOME=${System.env['HOME']}",
+            "JAVA_HOME=${System.env['JAVA_HOME']}",
+        ]
+        doExecute({ command.execute(env, currentDir) }, procHandler)
     }
 
     private static doExecute(execClosure, procHandler) {
