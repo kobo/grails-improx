@@ -130,9 +130,9 @@ if is_grails_test $path; then
 
     if [ "$test_type" = "functional" ]; then
         work_dir=`grails_base_dir $path`
-        (cd $work_dir; exec_command $GRAILS_BIN test-app ${test_type}: $class_name)
+        (cd $work_dir; exec_command $GRAILS_BIN test-app -echoOut -echoErr ${test_type}: $class_name)
     else
-        call_improx test-app ${test_type}: $class_name
+        call_improx test-app -echoOut -echoErr ${test_type}: $class_name
     fi
 
 # Try to invoke as Groovy script

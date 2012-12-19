@@ -98,11 +98,11 @@ class GrailsInvoker {
     }
 
     private invokeInteractiveModeProxy(testType, className, projectDir) {
-        new InteractiveModeProxyClient().invoke(['test-app', "${testType}:", className].join(' '))
+        new InteractiveModeProxyClient().invoke(['test-app', "-echoOut", "-echoErr", "${testType}:", className].join(' '))
     }
 
     private invokeGrails(testType, className, projectDir) {
-        ProcessUtil.execute([Config.GRAILS_BIN, 'test-app', "${testType}:" , className], projectDir)
+        ProcessUtil.execute([Config.GRAILS_BIN, 'test-app', "-echoOut", "-echoErr", "${testType}:" , className], projectDir)
     }
 }
 
