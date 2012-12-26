@@ -13,10 +13,12 @@
  */
 
 package org.jggug.kobo.improx
+
 import grails.build.logging.GrailsConsole
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 
 import java.util.regex.Matcher
+
 /**
  * Listen a port and execute a command specified by a client.
  */
@@ -92,7 +94,7 @@ class InteractiveModeProxyServer {
                         return
                     }
                     InteractiveMode.current?.parseAndExecute(command)
-                } catch (e) {
+                } catch (Throwable e) {
                     error("ERROR: Failed to execute command: ${command}", e)
                 }
             }

@@ -18,6 +18,7 @@ class ImproxGrailsPlugin {
     def pluginExcludes = [
         "src/docs/**",
         "scripts/PublishDocs.groovy",
+        "scripts/ErrorForTest.groovy",
     ]
     def title = "Improx - Interactive Mode Proxy"
     def author = "Yasuharu NAKANO"

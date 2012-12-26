@@ -37,10 +37,21 @@ abstract class AbstractEndToEndSpec extends Specification {
 
     def "command not found"() {
         when:
-        def stdout = executeCommand('NOT_EXISTS_COMMAND')
+        def result = executeCommand('NOT_EXISTS_COMMAND')
 
         then:
-        stdout =~ 'ERROR: Failed to execute command: NOT_EXISTS_COMMAND'
+        result =~ 'ERROR: Failed to execute command: NOT_EXISTS_COMMAND'
+        System.err.println result
+    }
+
+    def "command throws Error"() {
+        when:
+        def result = executeCommand('error-for-test')
+
+        then:
+        result =~ "ERROR: Failed to execute command: error-for-test"
+        result =~ "java.lang.Error: ERROR FROM SCRIPT!"
+        System.err.println result
     }
 
     def "via http"() {
