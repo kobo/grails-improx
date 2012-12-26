@@ -14,7 +14,6 @@
 
 package org.jggug.kobo.improx
 
-import grails.build.logging.GrailsConsole
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 
 import java.util.regex.Matcher
@@ -62,7 +61,7 @@ class InteractiveModeProxyServer {
         Thread.start {
             handleRequest(serverSocket)
         }
-        println "Interactive mode proxy server has started on $port port."
+        status "Interactive mode proxy server has started on $port port."
         return serverSocket
     }
 
@@ -76,17 +75,15 @@ class InteractiveModeProxyServer {
         } catch (SocketException e) {
             // do nothing because SocketException normally occurs when improx-stop is invoked.
         } finally {
-            println "Interactive mode proxy server stopped."
+            status "Interactive mode proxy server stopped."
         }
     }
 
     private static void executeCommand(Socket socket) {
-        def command = retrieveCommand(socket)
-
-        // the before/after 'flush' need to control a line separator rightly on interactive mode console.
-        GrailsConsole.instance.flush()
         try {
-            println "${command ? "'$command'" : "<empty>"} (Received from port ${socket.port})"
+            def command = retrieveCommand(socket)
+
+            info "${command ? "'$command'" : "<empty>"} (Received from port ${socket.port})"
             IOUtils.withSocketOutputStreamAsOutAndErr(socket) {
                 try {
                     if (!command) {
@@ -100,7 +97,6 @@ class InteractiveModeProxyServer {
             }
         } finally {
             socket?.close()
-            GrailsConsole.instance.flush()
         }
     }
 
@@ -121,6 +117,15 @@ class InteractiveModeProxyServer {
 
     private static int resolvePort() {
         return (System.getProperty("improx.port") ?: DEFAULT_PORT) as int
+    }
+
+    private static void info(String message) {
+        IOUtils.ORIGINALS.grailsConsole.append(message)
+        IOUtils.ORIGINALS.grailsConsole.showPrompt()
+    }
+
+    private static void status(String status) {
+        IOUtils.ORIGINALS.grailsConsole.addStatus(status)
     }
 
     private static void error(String message, Throwable e) {
