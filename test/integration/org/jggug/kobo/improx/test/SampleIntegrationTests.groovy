@@ -5,9 +5,9 @@ import org.junit.Test
 /**
  * This is for being invoked by functional test for smart invoker.
  */
-class SampleUnitTests {
+class SampleIntegrationTests {
     @Test
     void "for testing smart invoker"() {
-        println "INVOKING UNIT TEST SUCCEED"
+        println "INVOKING INTEGRATION TEST SUCCEED"
     }
 }

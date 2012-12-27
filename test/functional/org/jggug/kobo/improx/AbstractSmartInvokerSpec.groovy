@@ -26,8 +26,22 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         def result = invokeFile(targetFile)
 
         then:
+        result =~ "Executing 'test-app -echoOut -echoErr unit: org.jggug.kobo.improx.test.SampleUnitTests' via interactive mode proxy..."
         result =~ "Tests PASSED"
         result =~ "INVOKING UNIT TEST SUCCEED"
+    }
+
+    def "a file under test/integration is invoked as unit test via improx"() {
+        given:
+        def targetFile = toAbsolutePath("test/integration/org/jggug/kobo/improx/test/SampleIntegrationTests.groovy")
+
+        when:
+        def result = invokeFile(targetFile)
+
+        then:
+        result =~ "Executing 'test-app -echoOut -echoErr integration: org.jggug.kobo.improx.test.SampleIntegrationTests' via interactive mode proxy..."
+        result =~ "Tests PASSED"
+        result =~ "INVOKING INTEGRATION TEST SUCCEED"
     }
 
     abstract String invokeFile(command)
