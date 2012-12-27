@@ -9,6 +9,5 @@ class SampleFunctionalTests {
     @Test
     void "for testing smart invoker"() {
         println "INVOKING FUNCTIONAL TEST SUCCEED"
-        println "an extra line because sometimes missing a line on console"
     }
 }

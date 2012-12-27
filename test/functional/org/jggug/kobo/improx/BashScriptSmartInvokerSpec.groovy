@@ -17,9 +17,11 @@ package org.jggug.kobo.improx
 class BashScriptSmartInvokerSpec extends AbstractSmartInvokerSpec {
 
     @Override
-    String invokeFile(file) {
+    String invokeFile(file, List env) {
+        // multiple invocation of external process causes too complex to handle.
+        // so here echo back of script by debug mode only for testing is used.
         def script = System.properties["user.dir"] + "/build/improx-resources/scripts/improxSmartInvoker.sh"
-        def process = [script, file].execute(["IMPROX_DEBUG=true"], null)
+        def process = [script, file].execute(env, null)
         assert process.err.text == ""
         return process.in.text
     }

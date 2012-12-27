@@ -18,12 +18,14 @@ import spock.lang.Specification
 
 abstract class AbstractSmartInvokerSpec extends Specification {
 
+    def env = ["IMPROX_DEBUG=true", "PATH=/bin:/usr/bin"]
+
     def "a file under 'test/unit' directory is invoked as unit test via improx"() {
         given:
         def targetFile = toAbsolutePath("test/unit/org/jggug/kobo/improx/test/SampleUnitTests.groovy")
 
         when:
-        def result = invokeFile(targetFile)
+        def result = invokeFile(targetFile, env)
 
         then:
         result =~ "Executing 'test-app -echoOut -echoErr unit: org.jggug.kobo.improx.test.SampleUnitTests' via interactive mode proxy..."
@@ -36,7 +38,7 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         def targetFile = toAbsolutePath("test/integration/org/jggug/kobo/improx/test/SampleIntegrationTests.groovy")
 
         when:
-        def result = invokeFile(targetFile)
+        def result = invokeFile(targetFile, env)
 
         then:
         result =~ "Executing 'test-app -echoOut -echoErr integration: org.jggug.kobo.improx.test.SampleIntegrationTests' via interactive mode proxy..."
@@ -49,15 +51,41 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         def targetFile = toAbsolutePath("test/functional/org/jggug/kobo/improx/test/SampleFunctionalTests.groovy")
 
         when:
-        def result = invokeFile(targetFile)
+        def result = invokeFile(targetFile, env)
 
         then:
         result =~ "Executing 'grails test-app -echoOut -echoErr functional: org.jggug.kobo.improx.test.SampleFunctionalTests'..."
-        // multiple invocation of external process causes too complex to handle.
-        // so here echo back of script by debug mode only for testing is used.
     }
 
-    abstract String invokeFile(command)
+    def "a file not under 'test/(unit|integration|functional)' directory is invoked as groovy script"() {
+        given:
+        def targetFile = toAbsolutePath("test/resources/sampleGroovyScript.groovy")
+
+        and: "to use normal groovy"
+        env = ["IMPROX_DEBUG=true", "PATH=/bin:/usr/bin:${toAbsolutePath('test/resources/bin_groovy')}"]
+
+        when:
+        def result = invokeFile(targetFile, env)
+
+        then:
+        result =~ "Executing 'groovy /.*/test/resources/sampleGroovyScript.groovy'..."
+    }
+
+    def "a file not under 'test/(unit|integration|functional)' directory is invoked as groovyclient script"() {
+        given:
+        def targetFile = toAbsolutePath("test/resources/sampleGroovyScript.groovy")
+
+        and: "to use GroovyServ's groovyclient"
+        env = ["IMPROX_DEBUG=true", "PATH=/bin:/usr/bin:${toAbsolutePath('test/resources/bin_groovyclient')}"]
+
+        when:
+        def result = invokeFile(targetFile, env)
+
+        then:
+        result =~ "Executing 'groovyclient /.*/test/resources/sampleGroovyScript.groovy'..."
+    }
+
+    abstract String invokeFile(targetFile, List env)
 
     private static toAbsolutePath(relativePath) {
         new File(System.properties["user.dir"], relativePath).absolutePath

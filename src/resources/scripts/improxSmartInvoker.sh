@@ -29,9 +29,9 @@ IMPROX_PORT=${IMPROX_PORT:=8096}
 
 # This script expects the commands will find in PATH environment variable.
 # If you don't want to use PATH environment variable, change the following lines.
-GRAILS_BIN='grails'
-GROOVYCLIENT_BIN='groovyclient'
-GROOVY_BIN='groovy'
+GRAILS_BIN=${GRAILS_BIN:-grails}
+GROOVYCLIENT_BIN=${GROOVYCLIENT_BIN:-groovyclient}
+GROOVY_BIN=${GROOVY_BIN:-groovy}
 
 #---------------------------------------
 # Definition
@@ -101,9 +101,7 @@ exists_in_path() {
 exec_command() {
     local command="$*"
     echo "Executing '${command}'..."
-    if [ "$IMPROX_DEBUG" = "true" ]; then
-        return
-    fi
+    [ "$IMPROX_DEBUG" = "true" ] && return
     $command
 }
 
@@ -148,4 +146,3 @@ else
         die "Cannot invoke: ${path}"
     fi
 fi
-

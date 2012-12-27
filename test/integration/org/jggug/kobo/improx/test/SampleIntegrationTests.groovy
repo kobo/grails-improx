@@ -9,6 +9,5 @@ class SampleIntegrationTests {
     @Test
     void "for testing smart invoker"() {
         println "INVOKING INTEGRATION TEST SUCCEED"
-        println "an extra line because sometimes missing a line on console"
     }
 }

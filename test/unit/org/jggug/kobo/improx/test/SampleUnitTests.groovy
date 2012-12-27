@@ -9,6 +9,5 @@ class SampleUnitTests {
     @Test
     void "for testing smart invoker"() {
         println "INVOKING UNIT TEST SUCCEED"
-        println "an extra line because sometimes missing a line on console"
     }
 }
