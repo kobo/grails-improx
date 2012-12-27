@@ -33,6 +33,7 @@ abstract class AbstractSimpleClientSpec extends Specification {
 
         then:
         result =~ "Tests PASSED"
+        result =~ "INVOKING UNIT TEST SUCCEED"
     }
 
     def "command not found"() {

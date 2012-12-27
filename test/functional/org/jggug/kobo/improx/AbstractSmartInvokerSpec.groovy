@@ -26,8 +26,8 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         def result = invokeFile(targetFile)
 
         then:
-        result =~ "Usage"
         result =~ "Tests PASSED"
+        result =~ "INVOKING UNIT TEST SUCCEED"
     }
 
     abstract String invokeFile(command)
