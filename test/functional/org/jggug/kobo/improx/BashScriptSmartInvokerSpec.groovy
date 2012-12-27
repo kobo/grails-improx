@@ -14,18 +14,13 @@
 
 package org.jggug.kobo.improx
 
-class SimpleClientGroovyScriptSpec extends AbstractEndToEndSpec {
+class BashScriptSmartInvokerSpec extends AbstractSmartInvokerSpec {
 
     @Override
-    String executeCommand(command) {
-        def script = System.properties["user.dir"] + "/build/improx-resources/scripts/improxClient.groovy"
-        def process = ["groovy", script, command].execute()
-        def errText = process.err.text
-        assert errText == "" || hasOnlyPickedUpLines(errText)
+    String invokeFile(file) {
+        def script = System.properties["user.dir"] + "/build/improx-resources/scripts/improxSmartInvoker.sh"
+        def process = [script, file].execute()
+        assert process.err.text == ""
         return process.in.text
-    }
-
-    private static boolean hasOnlyPickedUpLines(String errText) {
-        errText.readLines().every { line -> line.startsWith("Picked up _JAVA_OPTIONS:") }
     }
 }

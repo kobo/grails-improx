@@ -16,7 +16,7 @@ package org.jggug.kobo.improx
 
 import spock.lang.Specification
 
-abstract class AbstractEndToEndSpec extends Specification {
+abstract class AbstractSimpleClientSpec extends Specification {
 
     def "help command"() {
         when:
@@ -29,7 +29,7 @@ abstract class AbstractEndToEndSpec extends Specification {
 
     def "test-app unit: Target"() {
         when:
-        def result = executeCommand("test-app unit: NotExistsTestClass")
+        def result = executeCommand("test-app unit: SampleUnitTests")
 
         then:
         result =~ "Tests PASSED"

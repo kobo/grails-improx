@@ -14,7 +14,7 @@
 
 package org.jggug.kobo.improx
 
-class SimpleClientBashScriptSpec extends AbstractEndToEndSpec {
+class BashScriptSimpleClientSpec extends AbstractSimpleClientSpec {
 
     @Override
     String executeCommand(command) {
