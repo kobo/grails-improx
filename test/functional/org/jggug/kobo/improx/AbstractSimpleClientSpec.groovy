@@ -29,7 +29,7 @@ abstract class AbstractSimpleClientSpec extends Specification {
 
     def "test-app unit: Target"() {
         when:
-        def result = executeCommand("test-app unit: SampleUnitTests")
+        def result = executeCommand("test-app unit: -echoOut -echoErr SampleUnitTests")
 
         then:
         result =~ "Tests PASSED"
