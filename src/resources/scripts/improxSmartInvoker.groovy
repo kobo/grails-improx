@@ -133,7 +133,7 @@ class ProcessUtil {
         }
     }
 
-    private static doExecute(closure) {
+    private static boolean doExecute(closure) {
         try {
             def proc = closure.call()
 
