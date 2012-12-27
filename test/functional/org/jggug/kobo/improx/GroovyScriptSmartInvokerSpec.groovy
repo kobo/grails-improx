@@ -14,11 +14,11 @@
 
 package org.jggug.kobo.improx
 
-class BashScriptSmartInvokerSpec extends AbstractSmartInvokerSpec {
+class GroovyScriptSmartInvokerSpec extends AbstractSmartInvokerSpec {
 
     @Override
     String invokeFile(file) {
-        def script = System.properties["user.dir"] + "/build/improx-resources/scripts/improxSmartInvoker.sh"
+        def script = System.properties["user.dir"] + "/build/improx-resources/scripts/improxSmartInvoker.groovy"
         def process = [script, file].execute(["IMPROX_DEBUG=true"], null)
         assert process.err.text == ""
         return process.in.text
