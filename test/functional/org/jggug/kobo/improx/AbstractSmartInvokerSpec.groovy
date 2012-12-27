@@ -31,7 +31,7 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         result =~ "INVOKING UNIT TEST SUCCEED"
     }
 
-    def "a file under 'test/integration' directory is invoked as unit test via improx"() {
+    def "a file under 'test/integration' directory is invoked as integration test via improx"() {
         given:
         def targetFile = toAbsolutePath("test/integration/org/jggug/kobo/improx/test/SampleIntegrationTests.groovy")
 
