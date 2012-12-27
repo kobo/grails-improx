@@ -44,6 +44,20 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         result =~ "INVOKING INTEGRATION TEST SUCCEED"
     }
 
+    def "a file under 'test/functional' directory is invoked as functional test on new grails process"() {
+        given:
+        def targetFile = toAbsolutePath("test/functional/org/jggug/kobo/improx/test/SampleFunctionalTests.groovy")
+
+        when:
+        def result = invokeFile(targetFile)
+
+        then:
+        result =~ "Executing 'grails test-app -echoOut -echoErr functional: org.jggug.kobo.improx.test.SampleFunctionalTests' via interactive mode proxy..."
+        result =~ "Tests PASSED"
+        result =~ "INVOKING FUNCTIONAL TEST SUCCEED??"
+    }
+
+
     abstract String invokeFile(command)
 
     private static toAbsolutePath(relativePath) {
