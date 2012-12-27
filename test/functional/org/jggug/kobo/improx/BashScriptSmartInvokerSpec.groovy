@@ -19,7 +19,7 @@ class BashScriptSmartInvokerSpec extends AbstractSmartInvokerSpec {
     @Override
     String invokeFile(file) {
         def script = System.properties["user.dir"] + "/build/improx-resources/scripts/improxSmartInvoker.sh"
-        def process = [script, file].execute()
+        def process = [script, file].execute(["IMPROX_DEBUG=true"], new File(System.properties["user.dir"]))
         assert process.err.text == ""
         return process.in.text
     }

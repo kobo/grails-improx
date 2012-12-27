@@ -101,6 +101,9 @@ exists_in_path() {
 exec_command() {
     local command="$*"
     echo "Executing '${command}'..."
+    if [ "$IMPROX_DEBUG" = "true" ]; then
+        return
+    fi
     $command
 }
 

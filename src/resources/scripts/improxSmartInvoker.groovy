@@ -123,12 +123,13 @@ class NotFoundInvoker {
 
 class ProcessUtil {
     static execute(List command, File currentDir = null) {
+        boolean shouldNotExec = Boolean.valueOf(System.getenv("IMPROX_DEBUG"))
         if (currentDir) {
             println "Executing '${command.join(' ')}' at ${currentDir} ..."
-            doExecute { command.execute([], currentDir) }
+            shouldNotExec || doExecute { command.execute([], currentDir) }
         } else {
             println "Executing '${command.join(' ')}' ..."
-            doExecute { command.execute() }
+            shouldNotExec || doExecute { command.execute() }
         }
     }
 
@@ -237,4 +238,3 @@ def groovyFileOf = { String path ->
 
 def path = args ? args[0] : '<NO_ARGUMENT>'
 new ChainOfInvokers().invoke(groovyFileOf(path))
-
