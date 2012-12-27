@@ -18,7 +18,7 @@ import spock.lang.Specification
 
 abstract class AbstractSmartInvokerSpec extends Specification {
 
-    def "a file under test/unit is invoked as unit test via improx"() {
+    def "a file under 'test/unit' directory is invoked as unit test via improx"() {
         given:
         def targetFile = toAbsolutePath("test/unit/org/jggug/kobo/improx/test/SampleUnitTests.groovy")
 
@@ -31,7 +31,7 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         result =~ "INVOKING UNIT TEST SUCCEED"
     }
 
-    def "a file under test/integration is invoked as unit test via improx"() {
+    def "a file under 'test/integration' directory is invoked as unit test via improx"() {
         given:
         def targetFile = toAbsolutePath("test/integration/org/jggug/kobo/improx/test/SampleIntegrationTests.groovy")
 
