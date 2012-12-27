@@ -26,7 +26,7 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         def result = invokeFile(targetFile)
 
         then:
-        result =~ "Executing 'test-app -echoOut -echoErr unit: org.jggug.kobo.improx.test.SampleUnitTests' via interactive mode proxy..."
+        result =~ "Invoking 'test-app -echoOut -echoErr unit: org.jggug.kobo.improx.test.SampleUnitTests' via interactive mode proxy..."
         result =~ "Tests PASSED"
         result =~ "INVOKING UNIT TEST SUCCEED"
     }
@@ -39,7 +39,7 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         def result = invokeFile(targetFile)
 
         then:
-        result =~ "Executing 'test-app -echoOut -echoErr integration: org.jggug.kobo.improx.test.SampleIntegrationTests' via interactive mode proxy..."
+        result =~ "Invoking 'test-app -echoOut -echoErr integration: org.jggug.kobo.improx.test.SampleIntegrationTests' via interactive mode proxy..."
         result =~ "Tests PASSED"
         result =~ "INVOKING INTEGRATION TEST SUCCEED"
     }
@@ -52,7 +52,7 @@ abstract class AbstractSmartInvokerSpec extends Specification {
         def result = invokeFile(targetFile)
 
         then:
-        result =~ "Executing 'grails test-app -echoOut -echoErr functional: org.jggug.kobo.improx.test.SampleFunctionalTests'..."
+        result =~ "Invoking 'grails test-app -echoOut -echoErr functional: org.jggug.kobo.improx.test.SampleFunctionalTests'..."
         // multiple invocation of external process causes too complex to handle.
         // so here echo back of script by debug mode only for testing is used.
     }
