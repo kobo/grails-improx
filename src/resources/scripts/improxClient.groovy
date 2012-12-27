@@ -32,7 +32,7 @@ class InteractiveModeProxyClient {
     private Socket socket
 
     def invoke(String command) {
-        println "Invoking '${command}' via interactive mode proxy..."
+        println "Executing '${command}' via interactive mode proxy..."
         validate(command)
         connect(port)
         send(command)
