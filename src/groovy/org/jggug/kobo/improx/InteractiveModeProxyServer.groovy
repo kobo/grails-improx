@@ -17,7 +17,6 @@ package org.jggug.kobo.improx
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 
 import java.util.regex.Matcher
-
 /**
  * Listen a port and execute a command specified by a client.
  */
@@ -120,7 +119,7 @@ class InteractiveModeProxyServer {
     }
 
     private static void info(String message) {
-        IOUtils.ORIGINALS.grailsConsole.append(message)
+        IOUtils.ORIGINALS.grailsConsole.out.println(message)
         IOUtils.ORIGINALS.grailsConsole.showPrompt()
     }
 
