@@ -30,8 +30,8 @@ repositories {
 }
 
 dependencies {
-    groovy 'org.codehaus.groovy:groovy-all:2.0.5'
-    groovy 'commons-cli:commons-cli:1.2'
+    compile 'org.codehaus.groovy:groovy-all:2.0.5'
+    compile 'commons-cli:commons-cli:1.2'
     testCompile 'org.spockframework:spock-core:0.7-groovy-2.0'
 }
 
@@ -91,7 +91,7 @@ test.doFirst { startGrails.execute() }
 test.doLast { stopGrails.execute() }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.3'
+    gradleVersion = '1.4'
 }
 
 //===========================================
