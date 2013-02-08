@@ -52,7 +52,7 @@ call_improx() {
     local command="$*"
     echo "Executing '${command}' via interactive mode proxy..."
     (
-        exec 5<> /dev/tcp/localhost/$IMPROX_PORT && echo "$command" >&5 && /bin/cat <&5
+        exec 5<> /dev/tcp/localhost/$IMPROX_PORT && echo "$command" >&5 && perl -pe 'local $|=1; $line' <&5
     ) 2>/dev/null || die "\
 Failed to connect to server via port $IMPROX_PORT
   Before connecting, install 'improx' plugin into your application, and
