@@ -14,6 +14,7 @@
 
 package org.jggug.kobo.improx
 
+import grails.build.logging.GrailsConsole
 import org.codehaus.groovy.grails.cli.interactive.InteractiveMode
 
 import java.util.regex.Matcher
@@ -119,20 +120,26 @@ class InteractiveModeProxyServer {
     }
 
     private static void info(String message) {
-        IOUtils.ORIGINALS.grailsConsole.out.println(message)
-        IOUtils.ORIGINALS.grailsConsole.showPrompt()
+        IOUtils.ORIGINALS.grailsConsole.with {
+            out.println message
+            out.print promptText
+            flush()
+        }
+    }
+
+    private static getPromptText() {
+        def console = IOUtils.ORIGINALS.grailsConsole
+        def ansiPrompt = GrailsConsole.getDeclaredMethod("ansiPrompt", [String] as Class[])
+        ansiPrompt.accessible = true
+        return console.isAnsiEnabled() ? ansiPrompt.invoke(console, GrailsConsole.PROMPT).toString() : GrailsConsole.PROMPT;
     }
 
     private static void status(String status) {
         IOUtils.ORIGINALS.grailsConsole.addStatus(status)
     }
 
-    private static void error(String message, Throwable e) {
+    private static void error(String message, Throwable e = null) {
         System.err.println(message)
-        e.printStackTrace()
-    }
-
-    private static void error(String message) {
-        System.err.println(message)
+        if (e) e.printStackTrace()
     }
 }
