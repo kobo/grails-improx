@@ -57,12 +57,14 @@ tasks.withType(GroovyCompile) each { it.groovyOptions.encoding = defaultEncoding
 // Tasks
 //===========================================
 
+def grailsServerProc
+
 task startGrails << {
     println ">> Starting Grails..."
     Thread.start {
         ProcessUtil.execute(["sh", "-c", "${projectDir}/grailsw"], projectDir) { proc ->
-            ext.grailsServerProc = proc
-            proc.out << "improx-start\n"
+            grailsServerProc = proc
+            proc << "improx-start\n"
         }
     }
     while (true) {
@@ -72,19 +74,26 @@ task startGrails << {
         } catch (ConnectException e) {
             // next loop
         }
+        sleep 1000
     }
     println ">> Improx server started."
 }
 
 task stopGrails << {
     println ">> Stopping Grails..."
-    withSocket('localhost', 8096) { socket ->
-        socket << "improx-stop\n"
-        println socket.inputStream.text
+    grailsServerProc << "improx-stop\n"
+    while (true) {
+        try {
+            withSocket('localhost', 8096) { /* do nothing (only to connect) */ }
+            // next loop
+        } catch (ConnectException e) {
+            break
+        }
+        sleep 1000
     }
-    sleep 1000
-    startGrails.grailsServerProc?.destroy()
-    println ">> Stopped."
+    println ">> Improx server stopped."
+    grailsServerProc << "exit\n"
+    println ">> Grails stopped."
 }
 
 test.doFirst { startGrails.execute() }
@@ -124,10 +133,12 @@ class ProcessUtil {
             // will automatically close the streams.
             def out = new FilterOutputStream(System.out) { void close() { /* do nothing */ } }
             def err = new FilterOutputStream(System.err) { void close() { /* do nothing */ } }
-            procHandler.call(proc)
-            proc.waitForProcessOutput(out, err)
+            proc.consumeProcessOutput(out, err)
 
-            return true
+            procHandler.call(proc)
+            proc.waitFor()
+
+            return proc
 
         } catch (IOException e) {
             if (e.message =~ /^Cannot run program/) return false
