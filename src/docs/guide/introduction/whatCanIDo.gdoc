@@ -1,4 +1,4 @@
-If you install this plugin to your application, you can invoke any Grails commands on an interactive mode,
+If you install this plugin to your application, you can invoke almost all Grails commands on an interactive mode,
 which started up in advance on a console, from other processes via a TCP.
 This means that you can quickly run a test which is opened in you favorite editor or IDE.
 If you've appropriately set them up, you'd have only to push a key in order to run it.

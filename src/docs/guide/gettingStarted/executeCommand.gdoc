@@ -19,7 +19,7 @@ And a "received" message will be also shown on the console on which @improx-star
 !terminal-received.png!
 
 
-You can execute any command as follows:
+You can execute a command as follows:
 
 {code}
 http://localhost:8096/list-plugins

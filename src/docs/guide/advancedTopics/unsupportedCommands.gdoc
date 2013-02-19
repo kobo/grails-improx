@@ -1,0 +1,21 @@
+h3. As same as interactive mode
+
+* install-plugin
+* uninstall-plugin
+
+
+h3. Special built-in commands
+
+* create-app
+* quit
+* stop-app
+* exit and
+* !(shell command)
+
+
+h3. Using threads complexly
+
+Because a start-app command causes a new thread to monitor the user input on interactive mode.
+The issue seems to be caused by handling the old thread.
+
+* start-app

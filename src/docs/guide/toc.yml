@@ -21,3 +21,4 @@ advancedTopics:
         title: Communication Protocol
         standardProtocol: Standard Protocol
         httpProtocol: HTTP Protocol
+    unsupportedCommands: Unsupported Commands
