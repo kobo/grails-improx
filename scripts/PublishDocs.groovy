@@ -37,6 +37,6 @@ def executeCommand(command, arguments = []) {
     println "\$ ${command} ${arguments.join(' ')}"
     def p = [command, *arguments].execute()
     p.waitFor()
-    println p.text
+    println p.in.text
     println p.err.text
 }
