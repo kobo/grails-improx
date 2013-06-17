@@ -45,18 +45,25 @@ class IOUtils {
         // Save originals
         System.properties["grails.console.enable.interactive"] = Boolean.FALSE.toString()
         try {
-            // this is important to make the stdout output to socket instead of console.
-            GrailsConsole.instance = SimpleGrailsConsole.getInstance(socket)
-
-            // GrailsScriptRunner use the cached console instance.
-            InteractiveMode.current.scriptRunner.console = GrailsConsole.instance
-
             // Replace System.xxx
             System.in = socket.inputStream
             System.out = new GrailsConsolePrintStream(socket.outputStream)
             System.err = new GrailsConsoleErrorPrintStream(socket.outputStream)
 
-            // Invoke
+            // this is important to make the stdout output to socket instead of console.
+            GrailsConsole.instance = SimpleGrailsConsole.getInstance(socket)
+            InteractiveMode.current.console = ORIGINALS.grailsConsole
+
+            // GrailsScriptRunner use the cached console instance.
+            InteractiveMode.current.scriptRunner.with {
+                console = GrailsConsole.instance
+
+                // If there aren't these, out/err might often output to "original" out/err.
+                originalIn = System.in
+                originalOut = System.out
+            }
+
+            // Invoke it.
             closure.call()
 
         } finally {
@@ -67,6 +74,11 @@ class IOUtils {
             GrailsConsole.instance = ORIGINALS.grailsConsole
             InteractiveMode.current.console = ORIGINALS.grailsConsole
             InteractiveMode.current.scriptRunner.console = ORIGINALS.grailsConsole
+            InteractiveMode.current.scriptRunner.with {
+                console = ORIGINALS.grailsConsole
+                originalIn = ORIGINALS.in
+                originalOut = ORIGINALS.out
+            }
             System.properties["grails.console.enable.interactive"] = Boolean.TRUE.toString()
         }
     }
