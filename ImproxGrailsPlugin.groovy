@@ -13,7 +13,7 @@
  */
 
 class ImproxGrailsPlugin {
-    def version = "0.2"
+    def version = "0.3"
     def grailsVersion = "2.1 > *"
     def pluginExcludes = [
         "src/docs/**",
