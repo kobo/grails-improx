@@ -77,7 +77,7 @@ resolve_class_name() {
 grails_base_dir() {
     local path="$1"
     echo $path \
-        | sed -E 's!/test/(unit|integration|functional)/.*$!!'
+        | sed -E 's!/?test/(unit|integration|functional)/.*$!!'
 }
 
 test_type() {
