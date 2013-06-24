@@ -80,7 +80,7 @@ class GrailsInvoker {
             def testType = matcher.group(2)
             def relativePathFromPackageRoot = matcher.group(3)
             def className = (relativePathFromPackageRoot - '.groovy').replaceAll('/', '.')
-            return [projectDir:projectDir, testType:testType, className:className]
+            return [projectDir: projectDir, testType: testType, className: className]
         }
         return null
     }
@@ -93,7 +93,7 @@ class GrailsInvoker {
             case 'functional':
                 return this.&invokeGrails
             default:
-                assert false : 'already passed parseParams()'
+                assert false: 'already passed parseParams()'
         }
     }
 
@@ -102,7 +102,7 @@ class GrailsInvoker {
     }
 
     private invokeGrails(testType, className, projectDir) {
-        ProcessUtil.execute([Config.GRAILS_BIN, 'test-app', "-echoOut", "-echoErr", "${testType}:" , className], projectDir)
+        ProcessUtil.execute([Config.GRAILS_BIN, 'test-app', "-echoOut", "-echoErr", "${testType}:", className], projectDir)
     }
 }
 
@@ -237,4 +237,3 @@ def groovyFileOf = { String path ->
 
 def path = args ? args[0] : '<NO_ARGUMENT>'
 new ChainOfInvokers().invoke(groovyFileOf(path))
-
