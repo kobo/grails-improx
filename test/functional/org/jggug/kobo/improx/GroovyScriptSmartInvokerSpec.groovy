@@ -14,12 +14,14 @@
 
 package org.jggug.kobo.improx
 
-class SimpleClientGroovyScriptSpec extends AbstractEndToEndSpec {
+class GroovyScriptSmartInvokerSpec extends AbstractSmartInvokerSpec {
 
     @Override
-    String executeCommand(command) {
-        def script = System.properties["user.dir"] + "/build/improx-resources/scripts/improxClient.groovy"
-        def process = ["groovy", script, command].execute()
+    String invokeFile(file, List env) {
+        // multiple invocation of external process causes too complex to handle.
+        // so here echo back of script by debug mode only for testing is used.
+        def script = System.properties["user.dir"] + "/build/improx-resources/scripts/improxSmartInvoker.groovy"
+        def process = ["groovy", script, file].execute(env, null)
         def errText = process.err.text
         assert errText == "" || hasOnlyPickedUpLines(errText)
         return process.in.text

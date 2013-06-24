@@ -125,22 +125,29 @@ class ProcessUtil {
     static execute(List command, File currentDir = null) {
         if (currentDir) {
             println "Executing '${command.join(' ')}' at ${currentDir} ..."
-            doExecute { command.execute([], currentDir) }
+            doExecute(command) { command.execute([], currentDir) }
         } else {
             println "Executing '${command.join(' ')}' ..."
-            doExecute { command.execute() }
+            doExecute(command) { command.execute() }
         }
     }
 
-    private static doExecute(closure) {
+    private static boolean doExecute(command, closure) {
+        if (System.getenv("IMPROX_TEST_FOR") != null) {
+            return System.getenv("IMPROX_TEST_FOR")?.equals(command.first())
+        }
         try {
             def proc = closure.call()
 
             // Delegate stdout/stderr to System.out/err
             // it's very important to disable a close method, because waitForProcessOutput
             // will automatically close the streams.
-            def out = new FilterOutputStream(System.out) { void close() { /* do nothing */ } }
-            def err = new FilterOutputStream(System.err) { void close() { /* do nothing */ } }
+            def out = new FilterOutputStream(System.out) {
+                void close() { /* do nothing */ }
+            }
+            def err = new FilterOutputStream(System.err) {
+                void close() { /* do nothing */ }
+            }
             proc.waitForProcessOutput(out, err)
 
             return true

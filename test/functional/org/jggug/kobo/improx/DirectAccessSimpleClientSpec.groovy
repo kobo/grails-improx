@@ -14,7 +14,7 @@
 
 package org.jggug.kobo.improx
 
-class DirectAccessSpec extends AbstractEndToEndSpec {
+class DirectAccessSimpleClientSpec extends AbstractSimpleClientSpec {
 
     private static final int DEFAULT_PORT = 8096
 
