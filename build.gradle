@@ -67,30 +67,14 @@ task startGrails << {
             proc << "improx-start\n"
         }
     }
-    while (true) {
-        try {
-            withSocket('localhost', 8096) { /* do nothing (only to connect) */ }
-            break
-        } catch (ConnectException e) {
-            // next loop
-        }
-        sleep 1000
-    }
+    SocketUtil.waitForPortAvailable(8096)
     println ">> Improx server started."
 }
 
 task stopGrails << {
     println ">> Stopping Grails..."
     grailsServerProc << "improx-stop\n"
-    while (true) {
-        try {
-            withSocket('localhost', 8096) { /* do nothing (only to connect) */ }
-            // next loop
-        } catch (ConnectException e) {
-            break
-        }
-        sleep 1000
-    }
+    SocketUtil.waitForPortDisavailable(8096)
     println ">> Improx server stopped."
     grailsServerProc << "exit\n"
     println ">> Grails stopped."
@@ -106,16 +90,6 @@ task wrapper(type: Wrapper) {
 //===========================================
 // Helper
 //===========================================
-
-def withSocket(host, port, closure) {
-    def socket
-    try {
-        socket = new Socket(host, port)
-        closure.call(socket)
-    } finally {
-        socket?.close()
-    }
-}
 
 class ProcessUtil {
     static execute(List command, File currentDir, Closure procHandler) {
@@ -146,3 +120,40 @@ class ProcessUtil {
         }
     }
 }
+
+class SocketUtil {
+    static waitForPortAvailable(int port) {
+        while (true) {
+            try {
+                withSocket('localhost', port) { /* do nothing (only to connect) */ }
+                break
+            } catch (ConnectException e) {
+                // next loop
+            }
+            sleep 1000
+        }
+    }
+
+    static waitForPortDisavailable(int port) {
+        while (true) {
+            try {
+                withSocket('localhost', port) { /* do nothing (only to connect) */ }
+                // next loop
+            } catch (ConnectException e) {
+                break
+            }
+            sleep 1000
+        }
+    }
+
+    private static withSocket(host, port, closure) {
+        def socket
+        try {
+            socket = new Socket(host, port)
+            closure.call(socket)
+        } finally {
+            socket?.close()
+        }
+    }
+}
+
