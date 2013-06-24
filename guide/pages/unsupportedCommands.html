@@ -2,12 +2,12 @@
                       "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
-    <title>Improx - Interactive Mode Proxy 0.3</title>
+    <title>4.2 Unsupported Commands 0.3</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <link rel="stylesheet" href="../../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
-    <link rel="stylesheet" href="../../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8"/>
     <script type="text/javascript">
-function addJsClass(el) {
+function addJsClass() {
     var classes = document.body.className.split(" ");
     classes.push("js");
     document.body.className = classes.join(" ");
@@ -16,14 +16,13 @@ function addJsClass(el) {
 </head>
 
 <body class="body" onload="addJsClass();">
-
 <div id="navigation">
     <ul>
         <li>
             <div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)">
                 <a href="../../guide/index.html" class="button">Table of contents</a>
 
-                <div id="nav-summary-childs">
+                <div id="nav-summary-childs" style="display:none;">
                     
                     <div class="toc-item" style="margin-left:0"><a href="../../guide/introduction.html"><strong>1</strong><span>Introduction</span></a>
                     </div>
@@ -57,27 +56,55 @@ function addJsClass(el) {
 <table id="colset" border="0" cellpadding="0" cellspacing="0">
     <tr>
         <td id="col1">
-            <div id="main" class="reference corner-all">
+            <div id="main" class="corner-all">
+
+                
+                    <div class="toc-item prev-left"><a href="../../guide/integrationWithEditors.html">&lt;&lt; <strong>3</strong><span>Integration with Editors and IDEs</span></a></div>
+                
 
                 <span id='toggle-col1' class="toggle">(<a href="#" onclick="localToggle(); return false;">Quick Reference</a>)</span>
 
-                <h1>improxSmartInvoker.sh</h1><p class="paragraph"/><h2>Purpose</h2><p class="paragraph"/>The <code>improxSmartInvoker.sh</code> script invokes any <code>.groovy</code> file in an appropriate way.<p class="paragraph"/>This script is very useful for invoking from editors or IDEs.
-All you have to do is to register it as  <em class="italic">External Tools</em> .<p class="paragraph"/><h2>Examples</h2><p class="paragraph"/><div class="code"><pre>improxSmartInvoker.sh /path/to/yourApp/test/unit/sample/SampleUnitTests.groovy &#45;&#45;&#91;1&#93;
-improxSmartInvoker.sh /path/to/yourApp/test/integration/sample/SampleIntegTests.groovy &#45;&#45;&#91;2&#93;
-improxSmartInvoker.sh /path/to/yourApp/test/functional/sample/SampleFuncTests.groovy &#45;&#45;&#91;3&#93;
-improxSmartInvoker.sh /path/to/scriptDir/myTribialScript.groovy &#45;&#45;&#91;4&#93;</pre></div>
+                
+
+
+                <div class="project">
+                    <h1>4.2 Unsupported Commands - Reference Documentation</h1>
+
+                    <p><strong>Authors:</strong> Yasuharu NAKANO</p>
+
+                    <p><strong>Version:</strong> 0.3</p>
+
+                    
+                </div>
+
+                
+
+                
+
+<h2 id="unsupportedCommands">4.2 Unsupported Commands</h2>
+<h3>As same as interactive mode</h3>
 <ul class="star">
-<li><code>&#91;1&#93;</code> invokes '<code>test-app unit: sample.SampleUnitTests</code>' on the interactive mode.</li>
-<li><code>&#91;2&#93;</code> invokes '<code>test-app integration: sample.SampleIntegTests</code>' on the interactive mode.</li>
-<li><code>&#91;3&#93;</code> invokes '<code>grails test-app functional: sample.SampleFuncTests</code>' as new standalone Grails process.</li>
-<li><code>&#91;4&#93;</code> invokes '<code>groovy /path/to/scriptDir/myTribialScript.groovy</code>' as a normal Groovy script.&#10;  If you've istalled GroovyServ, the <code>groovyclient</code> is automatically used instead of <code>groovy</code> command.</li>
-</ul><p class="paragraph"/><h2>Description</h2><p class="paragraph"/>Usage:<p class="paragraph"/><div class="code"><pre>improxSmartInvoker.sh FILE_PATH</pre></div><p class="paragraph"/>Arguments:
+<li>install-plugin</li>
+<li>uninstall-plugin</li>
+</ul><p class="paragraph"/><h3>Special built-in commands</h3>
 <ul class="star">
-<li><code>FILE_PATH</code> - The file path which you want to invoke in an appropriate way</li>
-</ul><p class="paragraph"/>Environment Variables:
+<li>create-app</li>
+<li>quit</li>
+<li>stop-app</li>
+<li>exit and</li>
+<li>!(shell command)</li>
+</ul><p class="paragraph"/><h3>Using threads complexly</h3><p class="paragraph"/>Because a start-app command causes a new thread to monitor the user input on interactive mode.
+The issue seems to be caused by handling the old thread.
 <ul class="star">
-<li><code>IMPROX_PORT</code> (optional) - The port number which is used for connection between client and server (default: <code>8096</code>)</li>
+<li>start-app</li>
 </ul><p class="paragraph"/>
+
+
+                <div style="clear:both;margin-top:15px;"></div>
+                
+                    <div class="toc-item prev-left"><a href="../../guide/integrationWithEditors.html">&lt;&lt; <strong>3</strong><span>Integration with Editors and IDEs</span></a></div>
+                
+                <div style="clear:both"></div>
             </div>
         </td>
         <td id="col2">
@@ -88,10 +115,8 @@ improxSmartInvoker.sh /path/to/scriptDir/myTribialScript.groovy &#45;&#45;&#91;4
                 </div>
                 <div class="menu">
                     
-                    <div class="menu-block">
-                        <h1 class="menu-title" onclick="toggleRef(nextElement(this))">Client Scripts</h1>
-                        <div class="menu-sub selected">
-                            
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Client Scripts</h1><div class="menu-sub">
+                        
                             <div class="menu-item"><a href="../../ref/Client%20Scripts/Usage.html">Usage</a></div>
                             
                             
@@ -107,13 +132,11 @@ improxSmartInvoker.sh /path/to/scriptDir/myTribialScript.groovy &#45;&#45;&#91;4
                             <div class="menu-item"><a href="../../ref/Client%20Scripts/improxSmartInvoker.sh.html">improxSmartInvoker.sh</a>
                             </div>
                             
-                        </div>
+                            </div>
                     </div>
                     
-                    <div class="menu-block">
-                        <h1 class="menu-title" onclick="toggleRef(nextElement(this))">Server Command Line</h1>
-                        <div class="menu-sub">
-                            
+                    <div class="menu-block"><h1 class="menu-title" onclick="toggleRef(this.parentNode.childNodes[1])">Server Command Line</h1><div class="menu-sub">
+                        
                             <div class="menu-item"><a href="../../ref/Server%20Command%20Line/Usage.html">Usage</a></div>
                             
                             
@@ -126,7 +149,7 @@ improxSmartInvoker.sh /path/to/scriptDir/myTribialScript.groovy &#45;&#45;&#91;4
                             <div class="menu-item"><a href="../../ref/Server%20Command%20Line/improx-stop.html">improx-stop</a>
                             </div>
                             
-                        </div>
+                            </div>
                     </div>
                     
                 </div>
@@ -151,8 +174,7 @@ improxSmartInvoker.sh /path/to/scriptDir/myTribialScript.groovy &#45;&#45;&#91;4
 
 </div>
 
-
-<script type="text/javascript" src="../../js/docs.js"></script>
+<script type="text/javascript" src="../js/docs.js"></script>
 
 </body>
 </html>
