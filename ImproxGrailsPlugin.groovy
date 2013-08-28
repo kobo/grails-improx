@@ -21,6 +21,7 @@ class ImproxGrailsPlugin {
         "scripts/ErrorForTest.groovy",
         "web-app/**",
     ]
+    def scopes = [excludes:'war']
     def title = "Improx - Interactive Mode Proxy"
     def author = "Yasuharu NAKANO"
     def authorEmail = "ynak@jggug.org"
