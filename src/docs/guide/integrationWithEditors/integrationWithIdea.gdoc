@@ -16,12 +16,12 @@ h3. External Tools
     !idea-external-tools-edit-sh.png!\
     Else:\
     {table}
-     *Field*           | *Value*                                     | *Remarks*
-     Name              | @Improx: SmartInvoker \[Groovy\]@           |
-     Group             | @Grails@                                    |
-     Program           | @/path/to/groovyclient@                     | You can use normal @groovy@ command, but it needs a global @JAVA_HOME@ environment variable and your patience.
-     Parameters        | @/path/to/improxSmartInvoker.sh $FilePath$@ | using a white space as delimiter
-     Working directory | @$FileDir$@                                 |
+     *Field*           | *Value*                                         | *Remarks*
+     Name              | @Improx: SmartInvoker \[Groovy\]@               |
+     Group             | @Grails@                                        |
+     Program           | @/path/to/groovyclient@                         | You can use normal @groovy@ command, but it needs a global @JAVA_HOME@ environment variable and your patience.
+     Parameters        | @/path/to/improxSmartInvoker.groovy $FilePath$@ | using a white space as delimiter
+     Working directory | @$FileDir$@                                     |
     {table}\
     !idea-external-tools-edit-groovy.png!
 # Click _"OK"_ button to save.
