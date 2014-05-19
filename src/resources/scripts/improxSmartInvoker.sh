@@ -69,7 +69,7 @@ check_file() {
 resolve_class_name() {
     local path="$1"
     echo $path \
-        | sed -E 's/.*test\/(unit|integration|functional)\///' \
+        | sed -E 's/.*test\/(unit|integration|functional|cli)\///' \
         | sed -E 's/.groovy$//' \
         | sed -e 's|/|.|g'
 }
@@ -77,13 +77,13 @@ resolve_class_name() {
 grails_base_dir() {
     local path="$1"
     echo $path \
-        | sed -E 's!/?test/(unit|integration|functional)/.*$!!'
+        | sed -E 's!/?test/(unit|integration|functional|cli)/.*$!!'
 }
 
 test_type() {
     local path="$1"
     echo $path \
-        | sed -E 's!^.*test/(unit|integration|functional)/.*$!\1!'
+        | sed -E 's!^.*test/(unit|integration|functional|cli)/.*$!\1!'
 }
 
 is_grails_test() {
@@ -138,6 +138,8 @@ if is_grails_test $path; then
     if [ "$test_type" = "functional" ]; then
         work_dir=`grails_base_dir $path`
         (cd $work_dir; exec_command $GRAILS_BIN test-app -echoOut -echoErr ${test_type}: $class_name)
+    elif [ "$test_type" = "cli" ]; then
+        call_improx test-app -echoOut -echoErr --other $class_name
     else
         call_improx test-app -echoOut -echoErr ${test_type}: $class_name
     fi
