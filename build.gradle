@@ -87,18 +87,29 @@ task wrapper(type: Wrapper) {
     gradleVersion = '1.6'
 }
 
+task docs << {
+    ProcessUtil.execute(["grails", "doc"], projectDir)
+    ProcessUtil.execute(["git", "checkout", "gh-pages"], projectDir)
+    copy {
+        from "$projectDir/target/docs"
+        into "$projectDir"
+    }
+    println ""
+    println "NOTICE: Please check the diff and then commit if no problem."
+}
+
 //===========================================
 // Helper
 //===========================================
 
 class ProcessUtil {
-    static execute(List command, File currentDir, Closure procHandler) {
+    static execute(List command, File currentDir, Closure procHandler = null) {
         println "Executing '${command.join(' ')}' at ${currentDir} ..."
         def env = ['HOME', 'JAVA_HOME'].collect { "${it}=${System.env[it]}" }
         doExecute({ command.execute(env, currentDir) }, procHandler)
     }
 
-    private static doExecute(execClosure, procHandler) {
+    private static doExecute(execClosure, procHandler = null) {
         try {
             def proc = execClosure.call()
 
@@ -109,7 +120,9 @@ class ProcessUtil {
             def err = new FilterOutputStream(System.err) { void close() { /* do nothing */ } }
             proc.consumeProcessOutput(out, err)
 
-            procHandler.call(proc)
+            if (procHandler) {
+                procHandler.call(proc)
+            }
             proc.waitFor()
 
             return proc
